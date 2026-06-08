@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://titanbuild.co/sitemap.xml
