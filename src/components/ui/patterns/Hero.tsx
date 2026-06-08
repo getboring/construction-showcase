@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { cn } from "../../../lib/cn";
 
 interface HeroProps {
@@ -27,7 +28,7 @@ export function Hero({
     <header className={cn("pt-32 pb-20 px-6 relative", className)}>
       {backgroundImage && (
         <>
-          <img src={backgroundImage} alt="" role="presentation" className="absolute inset-0 w-full h-full object-cover" />
+          <img src={backgroundImage} alt="" role="presentation" width={1600} height={900} className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-steel-950/80" />
         </>
       )}
@@ -50,20 +51,20 @@ export function Hero({
         {(primaryAction || secondaryAction) && (
           <div className="flex flex-wrap gap-4 mt-10">
             {primaryAction && (
-              <a
-                href={primaryAction.href}
+              <Link
+                to={primaryAction.href}
                 className="bg-amber-500 hover:bg-amber-400 text-steel-950 font-bold uppercase tracking-widest text-sm px-8 py-4 rounded transition-colors inline-flex items-center justify-center"
               >
                 {primaryAction.label}
-              </a>
+              </Link>
             )}
             {secondaryAction && (
-              <a
-                href={secondaryAction.href}
+              <Link
+                to={secondaryAction.href}
                 className="border border-steel-700 hover:border-amber-500 text-zinc-100 font-bold uppercase tracking-widest text-sm px-8 py-4 rounded transition-colors inline-flex items-center justify-center"
               >
                 {secondaryAction.label}
-              </a>
+              </Link>
             )}
           </div>
         )}

@@ -63,10 +63,11 @@ export function ContactForm({ className }: ContactFormProps) {
             <form.Field name="name">
               {(field) => (
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">
+                  <label htmlFor="contact-name" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">
                     Full Name
                   </label>
                   <Input
+                    id="contact-name"
                     name={field.name}
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
@@ -85,10 +86,11 @@ export function ContactForm({ className }: ContactFormProps) {
             <form.Field name="email">
               {(field) => (
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">
+                  <label htmlFor="contact-email" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">
                     Email
                   </label>
                   <Input
+                    id="contact-email"
                     name={field.name}
                     type="email"
                     value={field.state.value}
@@ -110,10 +112,11 @@ export function ContactForm({ className }: ContactFormProps) {
           <form.Field name="phone">
             {(field) => (
               <div className="flex flex-col gap-1.5">
-                <label className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">
+                <label htmlFor="contact-phone" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">
                   Phone (Optional)
                 </label>
                 <Input
+                  id="contact-phone"
                   name={field.name}
                   type="tel"
                   value={field.state.value ?? ""}
@@ -128,10 +131,11 @@ export function ContactForm({ className }: ContactFormProps) {
           <form.Field name="message">
             {(field) => (
               <div className="flex flex-col gap-1.5">
-                <label className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">
+                <label htmlFor="contact-message" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">
                   Message
                 </label>
                 <Textarea
+                  id="contact-message"
                   name={field.name}
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}

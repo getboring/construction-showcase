@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import { useRouteMeta } from "../lib/useRouteMeta";
 import { Link } from "react-router-dom";
 
 export function NotFoundPage() {
-
-  useEffect(() => {
-    document.title = "404 - Page Not Found | TITAN Build Co.";
-  }, []);
+  useRouteMeta({
+    title: "Page Not Found",
+    description: "The page you're looking for doesn't exist or has been moved.",
+  });
 
   return (
     <div className="min-h-[60vh] bg-steel-950 flex items-center justify-center">

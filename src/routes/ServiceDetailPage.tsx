@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useRouteMeta } from "../lib/useRouteMeta";
 import { useParams } from "react-router-dom";
 import { PageHero, SectionDivider } from "../components/ui/layout";
 import { services } from "../lib/data";
@@ -7,6 +7,7 @@ import { AccordionItem, AccordionGroup } from "../components/ui/primitives/Accor
 import { FeatureBlock } from "../components/ui/content/FeatureBlock";
 import { CalloutBanner } from "../components/ui/content/CalloutBanner";
 import { CTASection } from "../components/ui/patterns/CTASection";
+import { JsonLd, faqLd } from "../lib/jsonLd";
 
 const serviceFaqs: Record<string, Array<{ q: string; a: string }>> = {
   "general-contracting": [
@@ -42,7 +43,10 @@ export function ServiceDetailPage() {
   const { slug } = useParams();
   const service = services.find((s) => s.slug === slug);
 
-  useEffect(() => { if (service) document.title = `${service.title} | Titan Build Co.`; }, [service]);
+  useRouteMeta({
+    title: service ? service.title : "Service Not Found",
+    description: service ? service.description : "The service you're looking for doesn't exist.",
+  });
 
   if (!service) {
     return <PageHero title="SERVICE NOT FOUND" description="The service you're looking for doesn't exist." />;
@@ -58,9 +62,7 @@ export function ServiceDetailPage() {
         </div>
       </section>
       <PageHero label={service.slug.toUpperCase()} title={service.title.toUpperCase()} description={service.description} />
-
       <SectionDivider />
-
       <section className="py-24 px-6">
         <div className="max-w-4xl mx-auto">
           <p className="text-steel-300 text-lg leading-relaxed mb-12">
@@ -74,6 +76,7 @@ export function ServiceDetailPage() {
 
           {faqs.length > 0 && (
             <>
+              <JsonLd data={faqLd(faqs)} />
               <p className="section-label">FAQ</p>
               <h2 className="font-display text-4xl md:text-5xl text-zinc-50 leading-none mb-8">COMMON QUESTIONS.</h2>
               <AccordionGroup>
@@ -89,13 +92,12 @@ export function ServiceDetailPage() {
           <div className="mt-12">
             <CalloutBanner
               title="Ready to Start?"
-              description={`Our ${service.title.toLowerCase()} team is ready to discuss your project. No obligation, no pressure — just honest answers.`}
+              description={`Our ${service.title.toLowerCase()} team is ready to discuss your project. No obligation, no pressure, just honest answers.`}
               action={{ label: "Get a Quote", href: "/quote" }}
             />
           </div>
         </div>
       </section>
-
       <CTASection />
     </>
   );

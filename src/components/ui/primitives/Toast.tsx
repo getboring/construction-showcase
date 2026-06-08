@@ -3,11 +3,10 @@ import { cn } from "../../../lib/cn";
 
 type ToastType = "success" | "error" | "info";
 
-interface ToastProps {
+interface ToastItemData {
+  id: number;
   message: string;
-  type?: ToastType;
-  duration?: number;
-  onClose?: () => void;
+  type: ToastType;
 }
 
 const typeStyles: Record<ToastType, string> = {
@@ -17,27 +16,23 @@ const typeStyles: Record<ToastType, string> = {
 };
 
 const typeIcons: Record<ToastType, string> = {
-  success: "✓",
-  error: "✕",
-  info: "ℹ",
+  success: "\u2713",
+  error: "\u2715",
+  info: "\u2139",
 };
 
-export function Toast({ message, type = "info", duration = 4000, onClose }: ToastProps) {
+export function Toast({ message, type = "info", duration = 4000, onClose }: {
+  message: string;
+  type?: ToastType;
+  duration?: number;
+  onClose?: () => void;
+}) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const hideTimer = setTimeout(() => {
-      setVisible(false);
-    }, duration);
-
-    const removeTimer = setTimeout(() => {
-      onClose?.();
-    }, duration + 200);
-
-    return () => {
-      clearTimeout(hideTimer);
-      clearTimeout(removeTimer);
-    };
+    const hideTimer = setTimeout(() => { setVisible(false); }, duration);
+    const removeTimer = setTimeout(() => { onClose?.(); }, duration + 200);
+    return () => { clearTimeout(hideTimer); clearTimeout(removeTimer); };
   }, [duration, onClose]);
 
   return (
@@ -67,7 +62,7 @@ export function Toast({ message, type = "info", duration = 4000, onClose }: Toas
 let toastId = 0;
 
 export function useToast() {
-  const [toasts, setToasts] = useState<Array<{ id: number; message: string; type: ToastType }>>([]);
+  const [toasts, setToasts] = useState<Array<ToastItemData>>([]);
 
   const addToast = useCallback((message: string, type: ToastType = "info") => {
     const id = ++toastId;

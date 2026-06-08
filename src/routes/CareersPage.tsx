@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useRouteMeta } from "../lib/useRouteMeta";
+import { Link } from "react-router-dom";
 import { PageHero, SectionDivider } from "../components/ui/layout";
 import { CTASection } from "../components/ui/patterns/CTASection";
 
@@ -12,7 +13,11 @@ const positions = [
 ];
 
 export function CareersPage() {
-  useEffect(() => { document.title = "Careers | Titan Build Co."; }, []);
+  useRouteMeta({
+    title: "Careers",
+    description: "Build with us. We hire builders, not resumes. Open positions in Nashville, Knoxville, and Chattanooga.",
+  });
+
   return (
     <>
       <PageHero
@@ -34,7 +39,7 @@ export function CareersPage() {
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-xs text-amber-500 uppercase tracking-widest">{pos.type}</span>
-                  <a href="/quote" className="bg-amber-500 hover:bg-amber-400 text-steel-950 font-bold uppercase tracking-widest text-xs px-4 py-2 rounded transition-colors">Apply</a>
+                  <Link to="/quote" className="bg-amber-500 hover:bg-amber-400 text-steel-950 font-bold uppercase tracking-widest text-xs px-4 py-2 rounded transition-colors">Apply</Link>
                 </div>
               </div>
             ))}

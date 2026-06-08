@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useRouteMeta } from "../lib/useRouteMeta";
 import { PageHero, SectionDivider } from "../components/ui/layout";
 import { TextScramble } from "../components/ui/motion/TextScramble";
 import { CTASection } from "../components/ui/patterns/CTASection";
@@ -12,7 +12,11 @@ const safetyMetrics = [
 ];
 
 export function SafetyPage() {
-  useEffect(() => { document.title = "Safety | Titan Build Co."; }, []);
+  useRouteMeta({
+    title: "Safety",
+    description: "Safety isn't a department at Titan. It's the company. Every person goes home every night.",
+  });
+
   return (
     <>
       <PageHero

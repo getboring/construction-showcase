@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useRouteMeta } from "../lib/useRouteMeta";
 import { PageHero, SectionDivider } from "../components/ui/layout";
 import { StatGrid } from "../components/ui/content/StatBlock";
 import { TestimonialCard } from "../components/ui/content/TestimonialCard";
@@ -13,7 +13,11 @@ const teamMembers = [
 ];
 
 export function AboutPage() {
-  useEffect(() => { document.title = "About | Titan Build Co."; }, []);
+  useRouteMeta({
+    title: "About",
+    description: "Twenty-seven years. Eight hundred forty-seven projects. Zero shortcuts. Founded in 1998 in Nashville.",
+  });
+
   return (
     <>
       <PageHero

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useRouteMeta } from "../lib/useRouteMeta";
 import { PageHero, SectionDivider } from "../components/ui/layout";
 import { ParallaxEquipment } from "../components/ui/motion/ParallaxEquipment";
 import { EquipmentCard } from "../components/ui/content/EquipmentCard";
@@ -6,7 +6,11 @@ import { equipmentList } from "../lib/data";
 import { CTASection } from "../components/ui/patterns/CTASection";
 
 export function FleetPage() {
-  useEffect(() => { document.title = "Fleet | Titan Build Co."; }, []);
+  useRouteMeta({
+    title: "Fleet",
+    description: "$48M fleet investment. Owned and maintained in-house. No subcontractor bottlenecks.",
+  });
+
   return (
     <>
       <PageHero

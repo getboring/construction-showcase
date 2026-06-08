@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useRouteMeta } from "../lib/useRouteMeta";
 import { Hero, FeaturedProject, CTASection } from "../components/ui/patterns";
 import { NumberCounters } from "../components/ui/motion/NumberCounters";
 import { BeforeAfter } from "../components/ui/motion/BeforeAfter";
@@ -11,7 +11,12 @@ import { SectionDivider } from "../components/ui/layout";
 import { ServiceGrid } from "../components/ui/content/ServiceCard";
 
 export function HomePage() {
-  useEffect(() => { document.title = "Titan Build Co. | Commercial Construction, Done Right."; }, []);
+  useRouteMeta({
+    title: "Commercial Construction, Done Right",
+    description: "Industrial construction since 1998. Commercial, healthcare, industrial, and residential construction across the Southeast.",
+    ogImage: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80&auto=format&fit=crop",
+  });
+
   return (
     <>
       <Hero

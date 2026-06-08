@@ -1,10 +1,14 @@
-import { useEffect } from "react";
+import { useRouteMeta } from "../lib/useRouteMeta";
 import { PageHero, SectionDivider } from "../components/ui/layout";
 import { ServiceGrid } from "../components/ui/content/ServiceCard";
 import { CTASection } from "../components/ui/patterns/CTASection";
 
 export function ServicesPage() {
-  useEffect(() => { document.title = "Services | Titan Build Co."; }, []);
+  useRouteMeta({
+    title: "Services",
+    description: "From pre-construction planning through final punch list, Titan delivers every phase of the construction lifecycle.",
+  });
+
   return (
     <>
       <PageHero

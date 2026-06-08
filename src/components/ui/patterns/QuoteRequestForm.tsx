@@ -57,7 +57,6 @@ export function QuoteRequestForm() {
   const [step, setStep] = useState<Step>("project");
   const [submitted, setSubmitted] = useState(false);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const form = useForm({
     defaultValues: {
       projectType: "",
@@ -162,7 +161,7 @@ export function QuoteRequestForm() {
               <form.Field name="projectType">
                 {(field) => (
                   <div className="flex flex-col gap-1.5">
-                    <label className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Project Type</label>
+                    <label htmlFor="quote-projectType" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Project Type</label>
                     <Select
                       name="projectType"
                       options={projectTypes}
@@ -182,7 +181,7 @@ export function QuoteRequestForm() {
               <form.Field name="timeline">
                 {(field) => (
                   <div className="flex flex-col gap-1.5">
-                    <label className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Timeline</label>
+                    <label htmlFor="quote-timeline" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Timeline</label>
                     <Select
                       name="timeline"
                       options={timelines}
@@ -197,7 +196,7 @@ export function QuoteRequestForm() {
               <form.Field name="budgetCents">
                 {(field) => (
                   <div className="flex flex-col gap-1.5">
-                    <label className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Budget Range</label>
+                    <label htmlFor="quote-budgetCents" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Budget Range</label>
                     <Select
                       name="budgetCents"
                       options={budgetRanges}
@@ -220,7 +219,7 @@ export function QuoteRequestForm() {
               <form.Field name="scope">
                 {(field) => (
                   <div className="flex flex-col gap-1.5">
-                    <label className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">
+                    <label htmlFor="quote-scope" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">
                       Project Scope
                     </label>
                     <p className="font-mono text-[10px] text-steel-600 mb-1">
@@ -256,7 +255,7 @@ export function QuoteRequestForm() {
                 <form.Field name="name">
                   {(field) => (
                     <div className="flex flex-col gap-1.5">
-                      <label className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Full Name</label>
+                      <label htmlFor="quote-name" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Full Name</label>
                       <Input
                         name={field.name}
                         value={field.state.value}
@@ -276,7 +275,7 @@ export function QuoteRequestForm() {
                 <form.Field name="email">
                   {(field) => (
                     <div className="flex flex-col gap-1.5">
-                      <label className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Email</label>
+                      <label htmlFor="quote-email" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Email</label>
                       <Input
                         name={field.name}
                         type="email"
@@ -299,7 +298,7 @@ export function QuoteRequestForm() {
                 <form.Field name="phone">
                   {(field) => (
                     <div className="flex flex-col gap-1.5">
-                      <label className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Phone (Optional)</label>
+                      <label htmlFor="quote-phone" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Phone (Optional)</label>
                       <Input
                         name={field.name}
                         type="tel"
@@ -314,7 +313,7 @@ export function QuoteRequestForm() {
                 <form.Field name="company">
                   {(field) => (
                     <div className="flex flex-col gap-1.5">
-                      <label className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Company (Optional)</label>
+                      <label htmlFor="quote-company" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Company (Optional)</label>
                       <Input
                         name={field.name}
                         value={field.state.value ?? ""}

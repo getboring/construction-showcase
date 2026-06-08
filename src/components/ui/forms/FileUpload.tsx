@@ -27,14 +27,17 @@ export function FileUpload({ name, label, accept, multiple = false, error = fals
 
   return (
     <div className={className}>
-      <label className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400 mb-3 block">{label}</label>
+      <label htmlFor={name} className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400 mb-3 block">{label}</label>
       <div
+        role="button"
+        tabIndex={0}
         className={cn(
           "border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors",
           dragover ? "border-amber-500 bg-amber-500/5" : "border-steel-700 hover:border-amber-500/50",
           error && "border-red-500/50",
         )}
         onClick={() => inputRef.current?.click()}
+        onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); inputRef.current?.click(); } }}
         onDragOver={(e) => { e.preventDefault(); setDragover(true); }}
         onDragLeave={() => setDragover(false)}
         onDrop={(e) => { e.preventDefault(); setDragover(false); handleFiles(e.dataTransfer.files); }}
@@ -45,6 +48,7 @@ export function FileUpload({ name, label, accept, multiple = false, error = fals
           name={name}
           accept={accept}
           multiple={multiple}
+          id={name}
           className="hidden"
           onChange={(e) => handleFiles(e.target.files)}
         />

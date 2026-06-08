@@ -1,10 +1,14 @@
-import { useEffect } from "react";
+import { useRouteMeta } from "../lib/useRouteMeta";
 import { PageHero, SectionDivider } from "../components/ui/layout";
 import { ContactForm } from "../components/ui/patterns/ContactForm";
 import { siteConfig } from "../lib/data";
 
 export function ContactPage() {
-  useEffect(() => { document.title = "Contact | Titan Build Co."; }, []);
+  useRouteMeta({
+    title: "Contact",
+    description: "Get in touch with Titan Build Co. Whether you're ready to break ground or just exploring options, we're here.",
+  });
+
   return (
     <>
       <PageHero

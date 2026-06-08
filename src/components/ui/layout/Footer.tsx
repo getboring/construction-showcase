@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { siteConfig } from "../../../lib/data";
 import { Wordmark, Separator } from "../primitives";
 
@@ -9,9 +10,9 @@ export function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           <div>
-            <a href="/" aria-label="TITAN Build Co. home">
+            <Link to="/" aria-label="TITAN Build Co. home">
               <Wordmark />
-            </a>
+            </Link>
             <p className="text-steel-500 text-sm mt-4 leading-relaxed">
               {siteConfig.tagline}. Commercial, healthcare, industrial, and residential construction across the Southeast.
             </p>
@@ -19,12 +20,12 @@ export function Footer() {
 
           <div>
             <h3 className="font-mono text-xs text-amber-500 uppercase tracking-[0.15em] mb-4">Services</h3>
-            <ul className="space-y-2" role="list">
+            <ul className="space-y-2">
               {["General Contracting", "Design-Build", "Construction Mgmt", "Pre-Construction"].map((s) => (
                 <li key={s}>
-                  <a href="/services" className="text-sm text-steel-400 hover:text-amber-400 transition-colors">
+                  <Link to="/services" className="text-sm text-steel-400 hover:text-amber-400 transition-colors">
                     {s}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -32,12 +33,17 @@ export function Footer() {
 
           <div>
             <h3 className="font-mono text-xs text-amber-500 uppercase tracking-[0.15em] mb-4">Company</h3>
-            <ul className="space-y-2" role="list">
-              {["About", "Projects", "Safety", "Careers"].map((s) => (
-                <li key={s}>
-                  <a href={`/${s.toLowerCase()}`} className="text-sm text-steel-400 hover:text-amber-400 transition-colors">
-                    {s}
-                  </a>
+            <ul className="space-y-2">
+              {[
+                { label: "About", href: "/about" },
+                { label: "Projects", href: "/projects" },
+                { label: "Safety", href: "/safety" },
+                { label: "Careers", href: "/careers" },
+              ].map((s) => (
+                <li key={s.label}>
+                  <Link to={s.href} className="text-sm text-steel-400 hover:text-amber-400 transition-colors">
+                    {s.label}
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -1,6 +1,7 @@
 import { Component, lazy, Suspense, type ReactNode } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, ScrollRestoration } from "react-router-dom";
 import { Layout } from "./routes/Layout";
+import { featuredProjects, services } from "./lib/data";
 
 const HomePage = lazy(() => import("./routes/HomePage").then((m) => ({ default: m.HomePage })));
 const AboutPage = lazy(() => import("./routes/AboutPage").then((m) => ({ default: m.AboutPage })));
@@ -68,31 +69,118 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 }
 
+function RouteErrorBoundary() {
+  return (
+    <div className="min-h-[60vh] bg-steel-950 flex items-center justify-center px-6">
+      <div className="text-center max-w-md">
+        <h1 className="font-display text-4xl text-zinc-50 mb-4">PAGE ERROR.</h1>
+        <p className="text-steel-400 text-sm mb-6">Something went wrong loading this page.</p>
+        <a
+          href="/"
+          className="bg-amber-500 hover:bg-amber-400 text-steel-950 font-bold uppercase tracking-widest text-sm px-6 py-3 rounded transition-colors inline-block"
+        >
+          Back to Home
+        </a>
+      </div>
+    </div>
+  );
+}
+
+function LazyRoute({ Component }: { Component: React.LazyExoticComponent<React.ComponentType> }) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <ScrollRestoration />
+      <Component />
+    </Suspense>
+  );
+}
+
+export const router = createBrowserRouter([
+  {
+    element: <Layout />,
+    errorElement: <RouteErrorBoundary />,
+    children: [
+      {
+        index: true,
+        element: <LazyRoute Component={HomePage} />,
+        loader: async () => {
+          return { title: "Titan Build Co. | Commercial Construction, Done Right." };
+        },
+      },
+      {
+        path: "about",
+        element: <LazyRoute Component={AboutPage} />,
+      },
+      {
+        path: "services",
+        element: <LazyRoute Component={ServicesPage} />,
+      },
+      {
+        path: "services/:slug",
+        element: <LazyRoute Component={ServiceDetailPage} />,
+        loader: async ({ params }) => {
+          const service = services.find((s) => s.slug === params.slug);
+          if (!service) {
+            throw new Response("Service not found", { status: 404 });
+          }
+          return { service };
+        },
+      },
+      {
+        path: "projects",
+        element: <LazyRoute Component={ProjectsPage} />,
+      },
+      {
+        path: "projects/:slug",
+        element: <LazyRoute Component={ProjectDetailPage} />,
+        loader: async ({ params }) => {
+          const project = featuredProjects.find((p) => p.slug === params.slug);
+          if (!project) {
+            throw new Response("Project not found", { status: 404 });
+          }
+          return { project };
+        },
+      },
+      {
+        path: "process",
+        element: <LazyRoute Component={ProcessPage} />,
+      },
+      {
+        path: "fleet",
+        element: <LazyRoute Component={FleetPage} />,
+      },
+      {
+        path: "safety",
+        element: <LazyRoute Component={SafetyPage} />,
+      },
+      {
+        path: "careers",
+        element: <LazyRoute Component={CareersPage} />,
+      },
+      {
+        path: "contact",
+        element: <LazyRoute Component={ContactPage} />,
+      },
+      {
+        path: "quote",
+        element: <LazyRoute Component={QuotePage} />,
+      },
+      {
+        path: "blog",
+        element: <LazyRoute Component={BlogPage} />,
+      },
+      {
+        path: "*",
+        element: <LazyRoute Component={NotFoundPage} />,
+      },
+    ],
+  },
+]);
+
 export function AppRouter() {
   return (
-    <BrowserRouter>
-      <ErrorBoundary>
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route index element={<HomePage />} />
-              <Route path="about" element={<AboutPage />} />
-              <Route path="services" element={<ServicesPage />} />
-              <Route path="services/:slug" element={<ServiceDetailPage />} />
-              <Route path="projects" element={<ProjectsPage />} />
-              <Route path="projects/:slug" element={<ProjectDetailPage />} />
-              <Route path="process" element={<ProcessPage />} />
-              <Route path="fleet" element={<FleetPage />} />
-              <Route path="safety" element={<SafetyPage />} />
-              <Route path="careers" element={<CareersPage />} />
-              <Route path="contact" element={<ContactPage />} />
-              <Route path="quote" element={<QuotePage />} />
-              <Route path="blog" element={<BlogPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
-        </Suspense>
-      </ErrorBoundary>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <RouterProvider router={router} />
+    </ErrorBoundary>
   );
 }

@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import { useRouteMeta } from "../lib/useRouteMeta";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PageHero, SectionDivider, Breadcrumbs } from "../components/ui/layout";
 import { featuredProjects, testimonials, formatCents, formatSqft } from "../lib/data";
 import { CTASection } from "../components/ui/patterns/CTASection";
 import { ImageLightbox } from "../components/ui/content/ImageLightbox";
 import { TestimonialCard } from "../components/ui/content/TestimonialCard";
 import { Meter } from "../components/ui/primitives/Meter";
+import { JsonLd, projectLd } from "../lib/jsonLd";
 
 const statusProgress: Record<string, number> = {
   pre_construction: 10,
@@ -34,12 +36,25 @@ export function ProjectDetailPage() {
   const { slug } = useParams();
   const project = featuredProjects.find((p) => p.slug === slug);
 
-  useEffect(() => {
-    if (project) document.title = `${project.name} | Titan Build Co.`;
-  }, [project]);
+  useRouteMeta({
+    title: project ? project.name : "Project Not Found",
+    description: project ? project.description : "The project you're looking for doesn't exist.",
+    ogImage: project?.image,
+  });
 
   if (!project) {
-    return <PageHero title="PROJECT NOT FOUND" description="The project you're looking for doesn't exist." />;
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center px-6">
+        <div className="text-center">
+          <p className="font-mono text-amber-500 text-xs uppercase tracking-[0.2em] mb-4">404</p>
+          <h1 className="font-display text-4xl text-zinc-50 mb-4">PROJECT NOT FOUND</h1>
+          <p className="text-steel-400 mb-8">The project you're looking for doesn't exist.</p>
+          <Link to="/projects" className="bg-amber-500 hover:bg-amber-400 text-steel-950 font-bold uppercase tracking-widest text-sm px-8 py-4 rounded transition-colors inline-block">
+            View All Projects
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   const images = projectImages[project.slug] ?? [project.image];
@@ -47,6 +62,7 @@ export function ProjectDetailPage() {
 
   return (
     <>
+      <JsonLd data={projectLd(project)} />
       <section className="pt-32 pb-12 px-6">
         <div className="max-w-7xl mx-auto">
           <Breadcrumbs items={[{ label: "Projects", href: "/projects" }, { label: project.name }]} />
@@ -86,9 +102,7 @@ export function ProjectDetailPage() {
             <h2 className="font-display text-4xl md:text-5xl text-zinc-50 leading-none mb-8">PROJECT PHOTOS.</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {images.map((img, i) => (
-                <div key={i} className="relative h-64 rounded-lg overflow-hidden">
-                  <ImageLightbox src={img} alt={`${project.name} photo ${i + 1}`} />
-                </div>
+                <ImageLightbox key={i} src={img} alt={`${project.name} photo ${i + 1}`} />
               ))}
             </div>
           </div>
@@ -96,22 +110,34 @@ export function ProjectDetailPage() {
       )}
 
       {projectTestimonials.length > 0 && (
-        <>
-          <SectionDivider />
-          <section className="py-24 px-6">
-            <div className="max-w-4xl mx-auto">
-              <p className="section-label">Testimonials</p>
-              <h2 className="font-display text-4xl md:text-5xl text-zinc-50 leading-none mb-8">WHAT THEY SAID.</h2>
-              <div className="space-y-4">
-                {projectTestimonials.map((t) => (
-                  <TestimonialCard key={t.id} testimonial={t} />
-                ))}
-              </div>
+        <section className="py-24 px-6">
+          <div className="max-w-4xl mx-auto">
+            <p className="section-label">Client Feedback</p>
+            <h2 className="font-display text-4xl md:text-5xl text-zinc-50 leading-none mb-8">WHAT THEY SAID.</h2>
+            <div className="space-y-4">
+              {projectTestimonials.map((t) => (
+                <TestimonialCard key={t.id} testimonial={t} />
+              ))}
             </div>
-          </section>
-        </>
+          </div>
+        </section>
       )}
 
+      <section className="py-24 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="font-mono text-amber-500 text-xs uppercase tracking-[0.2em] mb-4">Ready to Start?</p>
+          <h2 className="font-display text-4xl md:text-5xl text-zinc-50 leading-none mb-6">LET'S DISCUSS YOUR PROJECT.</h2>
+          <p className="text-steel-400 max-w-xl mx-auto mb-8">Every project starts with a conversation. Tell us about yours.</p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link to="/quote" className="bg-amber-500 hover:bg-amber-400 text-steel-950 font-bold uppercase tracking-widest text-sm px-8 py-4 rounded transition-colors inline-flex items-center justify-center">
+              Get a Quote
+            </Link>
+            <Link to="/contact" className="border border-steel-700 hover:border-amber-500 text-zinc-100 font-bold uppercase tracking-widest text-sm px-8 py-4 rounded transition-colors inline-flex items-center justify-center">
+              Contact Us
+            </Link>
+          </div>
+        </div>
+      </section>
       <CTASection />
     </>
   );

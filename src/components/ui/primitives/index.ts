@@ -21,3 +21,8 @@ export { Tooltip } from "./Tooltip";
 export { Popover } from "./Popover";
 export { Meter } from "./Meter";
 export { ProgressBar } from "./Progress";
+export { NavMenu, SimpleNav } from "./NavigationMenu";
+export { DrawerRoot, DrawerContent, DrawerTitle, DrawerDescription } from "./Drawer";
+export { ScrollAreaRoot } from "./ScrollArea";
+export { BudgetSlider } from "./Slider";
+export { FilterGroup } from "./ToggleGroup";

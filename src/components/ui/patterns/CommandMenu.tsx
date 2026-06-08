@@ -63,6 +63,7 @@ export function CommandMenu() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full bg-transparent text-zinc-50 text-sm placeholder:text-steel-600 focus:outline-none font-mono"
+            // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
           />
         </div>
