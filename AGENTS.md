@@ -69,8 +69,8 @@ npx playwright test --update-snapshots  # regenerate visual baselines
 
 ## File Map
 
-- `src/styles/tokens.css` - Tailwind v4 @theme design tokens (steel, amber, concrete, rust, safety, hazard)
-- `src/styles/globals.css` - Base UI CSS transitions, reduced-motion, section utilities, focus-visible ring
+- `src/styles/tokens.css` - Tailwind v4 @theme design tokens (steel, amber, burgundy, warm, concrete, rust, safety, hazard)
+- `src/styles/globals.css` - Base UI CSS transitions, reduced-motion, section utilities, focus-visible ring, blueprint texture
 - `src/lib/cn.ts` - clsx + tailwind-merge
 - `src/lib/data.ts` - Seed data, navItems, siteConfig, formatCents, formatSqft
 - `src/lib/getFieldError.ts` - Form error extraction
@@ -86,7 +86,7 @@ npx playwright test --update-snapshots  # regenerate visual baselines
 - `src/routes/NotFoundPage.tsx` - 404 with proper meta
 - `src/components/ui/primitives/` - 33 exports across 29 files
 - `src/components/ui/forms/` - 13 exports across 13 files
-- `src/components/ui/layout/` - 8 exports across 8 files (Header, Footer, Section, Container, SectionHeader, SectionDivider, PageHero, Breadcrumbs)
+- `src/components/ui/layout/` - 8 exports across 8 files (Header, Footer, Section with variant prop, Container, SectionHeader, SectionDivider, PageHero, Breadcrumbs)
 - `src/components/ui/content/` - 16 exports across 16 files
 - `src/components/ui/motion/` - 7 exports across 7 files
 - `src/components/ui/patterns/` - 8 exports across 8 files
@@ -169,3 +169,15 @@ Header, Footer, Section, Container, SectionHeader, SectionDivider + GrainOverlay
 - Custom checkboxes in Checklist use `role="checkbox"` + `aria-checked` + `aria-label`
 - `eslint-plugin-jsx-a11y` enforced via ESLint config
 - Playwright E2E tests verify skip link, heading hierarchy, image alt text, ARIA attributes, keyboard navigation
+
+## Brand Design System
+
+Heritage color palette merged from JA Street & Associates original brand into modern dark TITAN aesthetic.
+
+- **Amber** (`#f59e0b`): Primary CTAs, interactive highlights, section-label markers
+- **Burgundy** (`#7a1e1f`): Heritage trust accent for section labels, trust bar, footer bg, secondary accents
+- **Warm** (`#faf9f7`): Alternating light sections for readability (services, testimonials, heritage)
+- **Blueprint**: Subtle technical drawing grid texture in Hero background (`globals.css: .bg-blueprint`)
+- **Section variants**: `<Section variant="dark">` (default), `<Section variant="warm">`, `<Section variant="burgundy">`
+- **TestimonialCard variants**: `variant="dark"` (dark bg) or `variant="warm"` (white bg with burgundy borders)
+- Footer uses `bg-burgundy-950` with warm-toned text instead of cold steel

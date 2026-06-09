@@ -206,14 +206,20 @@ E2E and visual regression tests across 7 spec files. Two projects: `desktop-chro
 
 ## Brand
 
-| Token | Value |
-|-------|-------|
-| Backgrounds | zinc-950 / steel-950 |
-| Primary accent | amber-500 (CTAs, highlights) |
-| Heritage accent | burgundy-600 `#7a1e1f` (trust indicators, section labels, footer, warm sections) |
-| Warm sections | warm-50 `#faf9f7` (alternating content sections for readability) |
-| Blueprint texture | Subtle grid overlay on hero (technical drawing feel) |
-| Display font | Bebas Neue |
-| Body font | Inter |
-| Mono font | JetBrains Mono |
-| Design tokens | `src/styles/tokens.css` (steel, amber, burgundy, warm, concrete, rust, safety, hazard) |
+Heritage color palette merged from JA Street & Associates original brand into modern dark TITAN aesthetic. Dark sections alternate with warm light sections for readability.
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| Steel-950 | `#0a0a0b` | Default dark background |
+| Amber-500 | `#f59e0b` | Primary CTAs, interactive highlights |
+| Burgundy-600 | `#7a1e1f` | Heritage accent - trust indicators, section labels, footer |
+| Warm-50 | `#faf9f7` | Alternating light sections (services, testimonials) |
+| Blueprint | CSS grid | Technical drawing texture in hero |
+
+**Section variants**: `<Section variant="dark">` (default), `<Section variant="warm">`, `<Section variant="burgundy">`
+
+| Font | Usage |
+|------|-------|
+| Bebas Neue | Display headings (display) |
+| Inter | Body text |
+| JetBrains Mono | Labels, mono text |
