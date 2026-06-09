@@ -1,5 +1,5 @@
 import { Component, lazy, Suspense, type ReactNode } from "react";
-import { createBrowserRouter, RouterProvider, ScrollRestoration } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Layout } from "./routes/Layout";
 import { featuredProjects, services } from "./lib/data";
 
@@ -88,14 +88,15 @@ function RouteErrorBoundary() {
 
 function LazyRoute({ Component }: { Component: React.LazyExoticComponent<React.ComponentType> }) {
   return (
-    <Suspense fallback={<Loading />}>
-      <ScrollRestoration />
-      <Component />
-    </Suspense>
+    <ErrorBoundary>
+      <Suspense fallback={<Loading />}>
+        <Component />
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 
-export const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     element: <Layout />,
     errorElement: <RouteErrorBoundary />,
@@ -103,24 +104,31 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <LazyRoute Component={HomePage} />,
-        loader: async () => {
+        loader: () => {
           return { title: "Titan Build Co. | Commercial Construction, Done Right." };
         },
       },
       {
         path: "about",
         element: <LazyRoute Component={AboutPage} />,
+        loader: () => {
+          return { title: "About | Titan Build Co." };
+        },
       },
       {
         path: "services",
         element: <LazyRoute Component={ServicesPage} />,
+        loader: () => {
+          return { services };
+        },
       },
       {
         path: "services/:slug",
         element: <LazyRoute Component={ServiceDetailPage} />,
-        loader: async ({ params }) => {
+        loader: ({ params }) => {
           const service = services.find((s) => s.slug === params.slug);
           if (!service) {
+            // eslint-disable-next-line @typescript-eslint/only-throw-error -- React Router expects Response for 404
             throw new Response("Service not found", { status: 404 });
           }
           return { service };
@@ -129,13 +137,17 @@ export const router = createBrowserRouter([
       {
         path: "projects",
         element: <LazyRoute Component={ProjectsPage} />,
+        loader: () => {
+          return { projects: featuredProjects };
+        },
       },
       {
         path: "projects/:slug",
         element: <LazyRoute Component={ProjectDetailPage} />,
-        loader: async ({ params }) => {
+        loader: ({ params }) => {
           const project = featuredProjects.find((p) => p.slug === params.slug);
           if (!project) {
+            // eslint-disable-next-line @typescript-eslint/only-throw-error -- React Router expects Response for 404
             throw new Response("Project not found", { status: 404 });
           }
           return { project };

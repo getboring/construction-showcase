@@ -51,7 +51,7 @@ export function Toast({ message, type = "info", duration = 4000, onClose }: {
         type === "success" && "bg-green-500 text-steel-950",
         type === "error" && "bg-red-500 text-white",
         type === "info" && "bg-amber-500 text-steel-950",
-      )}>
+      )} aria-hidden="true">
         {typeIcons[type]}
       </span>
       <p className="text-sm text-zinc-200">{message}</p>
@@ -59,13 +59,13 @@ export function Toast({ message, type = "info", duration = 4000, onClose }: {
   );
 }
 
-let toastId = 0;
+let globalToastId = 0;
 
 export function useToast() {
   const [toasts, setToasts] = useState<Array<ToastItemData>>([]);
 
   const addToast = useCallback((message: string, type: ToastType = "info") => {
-    const id = ++toastId;
+    const id = ++globalToastId;
     setToasts((prev) => [...prev, { id, message, type }]);
     setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));

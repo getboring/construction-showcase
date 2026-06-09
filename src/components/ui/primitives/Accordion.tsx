@@ -17,7 +17,7 @@ export function AccordionItem({ id, title, children, className }: AccordionItemP
             {title}
           </span>
           <svg
-            className="w-5 h-5 text-steel-500 group-hover:text-amber-400 transition-transform data-[panel-open]:rotate-180"
+            className="w-5 h-5 text-steel-500 group-hover:text-amber-400 transition-transform group-data-[panel-open]:rotate-180"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

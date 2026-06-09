@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useRef, useState, useCallback } from "react";
 import { Section, Container, SectionHeader } from "../layout";
 
 const beforeImage = "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=80&auto=format&fit=crop";
@@ -6,7 +6,8 @@ const afterImage = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab
 
 export function BeforeAfter() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState(50);
+  const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [position, setPosition] = useState(prefersReducedMotion ? 50 : 50);
 
   const handleMove = useCallback((clientX: number) => {
     const el = containerRef.current;
@@ -30,12 +31,22 @@ export function BeforeAfter() {
     window.addEventListener("pointerup", onUp);
   }, [handleMove]);
 
-  useEffect(() => {
-    const onKeyUp = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setPosition(50);
-    };
-    window.addEventListener("keyup", onKeyUp);
-    return () => window.removeEventListener("keyup", onKeyUp);
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      setPosition((p) => Math.max(0, p - 5));
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      setPosition((p) => Math.min(100, p + 5));
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      setPosition(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      setPosition(100);
+    } else if (e.key === "Escape") {
+      setPosition(50);
+    }
   }, []);
 
   return (
@@ -44,19 +55,27 @@ export function BeforeAfter() {
         <SectionHeader
           label="Transformation"
           title="BEFORE & AFTER"
-          description="Drag the divider. Every project starts as raw earth and ends as something that changes a skyline."
+          description="Drag the divider, or use arrow keys to adjust. Every project starts as raw earth and ends as something that changes a skyline."
         />
         <div
           ref={containerRef}
           className="relative w-full aspect-[16/9] overflow-hidden cursor-ew-resize rounded-lg select-none image-grain"
           onPointerDown={handlePointerDown}
-          role="img"
-          aria-label={`Before and after comparison slider at ${Math.round(position)}%`}
+          onKeyDown={handleKeyDown}
+          role="slider"
+          aria-label="Before and after comparison"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(position)}
+          aria-valuetext={`${Math.round(position)}% after`}
+          tabIndex={0}
         >
           <img
             src={beforeImage}
             alt="Construction site before"
             loading="lazy"
+            width={1600}
+            height={900}
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute top-6 left-6 z-20 bg-steel-900/80 backdrop-blur px-3 py-1.5 rounded">
@@ -73,6 +92,8 @@ export function BeforeAfter() {
               src={afterImage}
               alt="Completed building after"
               loading="lazy"
+              width={1600}
+              height={900}
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute top-6 right-6 bg-amber-500 px-3 py-1.5 rounded z-20">

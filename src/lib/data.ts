@@ -202,14 +202,14 @@ export const services = [
 
 export const testimonials = [
   { id: "1", name: "James Mitchell", company: "Nashville Metro Development", role: "VP of Real Estate", quote: "Titan delivered on every promise. The Meridian Tower project was complex, fast-tracked, and they never missed a milestone.", photo: null, projectId: "1", createdAt: new Date() },
-  { id: "2", name: "Dr. Sarah Patel", company: "Summit Health Systems", role: "Chief Facilities Officer", quote: "Healthcare construction requires zero tolerance for error. Titan understood that from day one.", photo: null, projectId: "3", createdAt: new Date() },
-  { id: "3", name: "Robert Chen", company: "Eastgate Development Corp", role: "Director of Operations", quote: "They brought order to what could have been chaos. 520,000 square feet and not a single delay attributable to their team.", photo: null, projectId: "5", createdAt: new Date() },
-  { id: "4", name: "Maria Gonzalez", company: "Harbor Point Developers", role: "Project Director", quote: "From pre-construction through closeout, Titan's communication was flawless. We knew exactly where every dollar went.", photo: null, projectId: "4", createdAt: new Date() },
-  { id: "5", name: "Tom Whitfield", company: "Tennessee Valley Authority", role: "Capital Projects Manager", quote: "They tackled our industrial facility expansion without shutting down active operations. That takes real expertise.", photo: null, projectId: null, createdAt: new Date() },
+  { id: "2", name: "Dr. Sarah Patel", company: "Summit Health Systems", role: "Chief Facilities Officer", quote: "Healthcare construction requires zero tolerance for error. Titan understood that from day one.", photo: null, projectId: "3", createdAt: "2025-03-15T00:00:00.000Z" },
+  { id: "3", name: "Robert Chen", company: "Eastgate Development Corp", role: "Director of Operations", quote: "They brought order to what could have been chaos. 520,000 square feet and not a single delay attributable to their team.", photo: null, projectId: "5", createdAt: "2025-04-20T00:00:00.000Z" },
+  { id: "4", name: "Maria Gonzalez", company: "Harbor Point Developers", role: "Project Director", quote: "From pre-construction through closeout, Titan's communication was flawless. We knew exactly where every dollar went.", photo: null, projectId: "4", createdAt: "2025-02-10T00:00:00.000Z" },
+  { id: "5", name: "Tom Whitfield", company: "Tennessee Valley Authority", role: "Capital Projects Manager", quote: "They tackled our industrial facility expansion without shutting down active operations. That takes real expertise.", photo: null, projectId: null, createdAt: "2025-01-05T00:00:00.000Z" },
 ] as Testimonial[];
 
 export const formatCents = (cents: number): string => {
-  if (cents >= 1_000_000_00) {
+  if (cents >= 1_000_000_000) {
     return `$${(cents / 100).toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
   }
   return `$${(cents / 100).toLocaleString("en-US")}`;

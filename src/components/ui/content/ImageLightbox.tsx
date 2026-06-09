@@ -23,7 +23,7 @@ export function ImageLightbox({ src, alt, className }: ImageLightboxProps) {
         />
       </DialogTrigger>
       <DialogContent className="!p-2 !max-w-5xl !bg-steel-950">
-        <DialogClose className="!relative !top-0 !right-0 !absolute top-4 right-4 z-10" aria-label="Close lightbox">&times;</DialogClose>
+        <DialogClose className="absolute top-4 right-4 z-10" aria-label="Close lightbox">&times;</DialogClose>
         <img src={src} alt={alt} className="w-full h-auto rounded" />
       </DialogContent>
     </DialogRoot>

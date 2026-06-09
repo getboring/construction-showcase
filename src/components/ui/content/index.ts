@@ -1,4 +1,6 @@
 export { ProjectCard } from "./ProjectCard";
+export { PreviewCard } from "./PreviewCard";
+export { PreviewCardHover } from "./ProjectPreviewHover";
 export { ServiceCard, ServiceGrid } from "./ServiceCard";
 export { EquipmentCard } from "./EquipmentCard";
 export { TestimonialCard } from "./TestimonialCard";
@@ -8,3 +10,7 @@ export { ProcessStep } from "./ProcessStep";
 export { FeatureBlock } from "./FeatureBlock";
 export { CalloutBanner } from "./CalloutBanner";
 export { ImageLightbox } from "./ImageLightbox";
+export { DataTable, SortIndicator, DataTablePagination } from "./DataTable";
+export { StatusBoard } from "./StatusBoard";
+export { Checklist } from "./Checklist";
+export { CostEstimator } from "./CostEstimator";

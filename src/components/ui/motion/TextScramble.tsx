@@ -5,11 +5,17 @@ import { certifications } from "../../../lib/data";
 
 const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*";
 
+const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 function useTextScramble(text: string, trigger: boolean) {
-  const [display, setDisplay] = useState(" ".repeat(text.length));
+  const [display, setDisplay] = useState(prefersReducedMotion && trigger ? text : " ".repeat(text.length));
 
   useEffect(() => {
     if (!trigger) return;
+
+    if (prefersReducedMotion) {
+      return;
+    }
 
     let frame = 0;
     const totalFrames = text.length * 3;

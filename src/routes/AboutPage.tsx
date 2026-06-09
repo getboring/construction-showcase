@@ -16,6 +16,7 @@ export function AboutPage() {
   useRouteMeta({
     title: "About",
     description: "Twenty-seven years. Eight hundred forty-seven projects. Zero shortcuts. Founded in 1998 in Nashville.",
+    canonicalPath: "/about",
   });
 
   return (

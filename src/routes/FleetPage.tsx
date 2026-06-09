@@ -9,6 +9,7 @@ export function FleetPage() {
   useRouteMeta({
     title: "Fleet",
     description: "$48M fleet investment. Owned and maintained in-house. No subcontractor bottlenecks.",
+    canonicalPath: "/fleet",
   });
 
   return (

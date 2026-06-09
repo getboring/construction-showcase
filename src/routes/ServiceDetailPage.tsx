@@ -1,13 +1,13 @@
 import { useRouteMeta } from "../lib/useRouteMeta";
-import { useParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { PageHero, SectionDivider } from "../components/ui/layout";
-import { services } from "../lib/data";
 import { Breadcrumbs } from "../components/ui/layout/Breadcrumbs";
 import { AccordionItem, AccordionGroup } from "../components/ui/primitives/Accordion";
 import { FeatureBlock } from "../components/ui/content/FeatureBlock";
 import { CalloutBanner } from "../components/ui/content/CalloutBanner";
 import { CTASection } from "../components/ui/patterns/CTASection";
-import { JsonLd, faqLd } from "../lib/jsonLd";
+import { JsonLd } from "../lib/jsonLd";
+import { faqLd } from "../lib/jsonLd-data";
 
 const serviceFaqs: Record<string, Array<{ q: string; a: string }>> = {
   "general-contracting": [
@@ -40,17 +40,14 @@ const serviceFaqs: Record<string, Array<{ q: string; a: string }>> = {
 };
 
 export function ServiceDetailPage() {
-  const { slug } = useParams();
-  const service = services.find((s) => s.slug === slug);
+  const loaderData: { service: { slug: string; title: string; description: string } } = useLoaderData();
+  const service = loaderData.service;
 
   useRouteMeta({
-    title: service ? service.title : "Service Not Found",
-    description: service ? service.description : "The service you're looking for doesn't exist.",
+    title: service.title,
+    description: service.description,
+    canonicalPath: `/services/${service.slug}`,
   });
-
-  if (!service) {
-    return <PageHero title="SERVICE NOT FOUND" description="The service you're looking for doesn't exist." />;
-  }
 
   const faqs = serviceFaqs[service.slug] ?? [];
 

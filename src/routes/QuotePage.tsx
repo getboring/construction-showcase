@@ -6,6 +6,7 @@ export function QuotePage() {
   useRouteMeta({
     title: "Request a Quote",
     description: "Tell us about your project and we'll have a real person reach out within 24 hours.",
+    canonicalPath: "/quote",
   });
 
   return (

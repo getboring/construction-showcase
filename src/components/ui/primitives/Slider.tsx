@@ -36,10 +36,10 @@ export function BudgetSlider({
       <Slider.Track className="relative h-2 w-full grow rounded-full bg-steel-800">
         <Slider.Indicator className="absolute h-full rounded-full bg-amber-500/30" />
       </Slider.Track>
-      <Slider.Thumb className="block h-5 w-5 rounded-full border-2 border-amber-500 bg-steel-950 shadow-md focus-visible:outline-2 focus-visible:outline-amber-500 focus-visible:outline-offset-2 hover:bg-amber-500 transition-colors">
+      <Slider.Thumb className="block h-5 w-5 rounded-full border-2 border-amber-500 bg-steel-950 shadow-md focus-visible:outline-2 focus-visible:outline-amber-500 focus-visible:outline-offset-2 hover:bg-amber-500 transition-colors" aria-label="Budget range">
         <Slider.Indicator className="sr-only" />
       </Slider.Thumb>
-      <div className="flex justify-between w-full mt-3 font-mono text-[10px] text-steel-500 uppercase tracking-widest">
+      <div className="flex justify-between w-full mt-3 font-mono text-[10px] text-steel-400 uppercase tracking-widest">
         <span>{formatLabel(min)}</span>
         <span className="text-amber-500">{formatLabel(value[0])}</span>
         <span>{formatLabel(max)}</span>

@@ -12,7 +12,19 @@ export function ScrollTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const ctx = gsap.context(() => {
+      if (prefersReducedMotion) {
+        phases.forEach((_, i) => {
+          gsap.set(`.phase-${i}`, { opacity: 1, x: 0 });
+        });
+        if (lineRef.current) {
+          gsap.set(lineRef.current, { strokeDashoffset: 0 });
+        }
+        return;
+      }
+
       if (lineRef.current) {
         const length = lineRef.current.getTotalLength();
         gsap.set(lineRef.current, {

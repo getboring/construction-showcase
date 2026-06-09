@@ -15,6 +15,7 @@ export function SafetyPage() {
   useRouteMeta({
     title: "Safety",
     description: "Safety isn't a department at Titan. It's the company. Every person goes home every night.",
+    canonicalPath: "/safety",
   });
 
   return (

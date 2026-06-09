@@ -1,19 +1,36 @@
-import { useState, useEffect, useCallback } from "react";
+import { Autocomplete } from "@base-ui/react";
 import { useNavigate } from "react-router-dom";
-import { DialogRoot, DialogTrigger, DialogContent, DialogClose } from "../primitives";
+import { useState, useEffect, useCallback } from "react";
 
-const commands = [
-  { label: "Home", href: "/", icon: "H" },
-  { label: "About", href: "/about", icon: "A" },
-  { label: "Services", href: "/services", icon: "S" },
-  { label: "Projects", href: "/projects", icon: "P" },
-  { label: "Process", href: "/process", icon: "P" },
-  { label: "Fleet", href: "/fleet", icon: "F" },
-  { label: "Safety", href: "/safety", icon: "S" },
-  { label: "Careers", href: "/careers", icon: "C" },
-  { label: "Contact", href: "/contact", icon: "C" },
-  { label: "Get a Quote", href: "/quote", icon: "Q" },
-  { label: "Blog", href: "/blog", icon: "B" },
+interface SearchItem {
+  label: string;
+  href: string;
+  group: string;
+}
+
+const allSearchItems: SearchItem[] = [
+  { label: "Home", href: "/", group: "Pages" },
+  { label: "About", href: "/about", group: "Pages" },
+  { label: "Services", href: "/services", group: "Pages" },
+  { label: "Projects", href: "/projects", group: "Pages" },
+  { label: "Process", href: "/process", group: "Pages" },
+  { label: "Fleet", href: "/fleet", group: "Pages" },
+  { label: "Safety", href: "/safety", group: "Pages" },
+  { label: "Careers", href: "/careers", group: "Pages" },
+  { label: "Contact", href: "/contact", group: "Pages" },
+  { label: "Get a Quote", href: "/quote", group: "Actions" },
+  { label: "Blog", href: "/blog", group: "Pages" },
+  { label: "General Contracting", href: "/services/general-contracting", group: "Services" },
+  { label: "Design-Build", href: "/services/design-build", group: "Services" },
+  { label: "Construction Management", href: "/services/construction-management", group: "Services" },
+  { label: "Pre-Construction", href: "/services/pre-construction", group: "Services" },
+  { label: "Steel Erection", href: "/services/steel-erection", group: "Services" },
+  { label: "Concrete & Foundations", href: "/services/concrete", group: "Services" },
+  { label: "Meridian Tower", href: "/projects/meridian-tower", group: "Projects" },
+  { label: "Riverside Commons", href: "/projects/riverside-commons", group: "Projects" },
+  { label: "Summit Medical Center", href: "/projects/summit-medical-center", group: "Projects" },
+  { label: "Harbor Point Residences", href: "/projects/harbor-point-residences", group: "Projects" },
+  { label: "Eastgate Industrial Park", href: "/projects/eastgate-industrial-park", group: "Projects" },
 ];
 
 export function CommandMenu() {
@@ -21,18 +38,12 @@ export function CommandMenu() {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
-  const filtered = commands.filter((cmd) =>
-    cmd.label.toLowerCase().includes(query.toLowerCase()),
-  );
-
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         setOpen((prev) => !prev);
-        setQuery("");
       }
-      if (e.key === "Escape") setOpen(false);
     }
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
@@ -41,57 +52,75 @@ export function CommandMenu() {
   const handleSelect = useCallback(
     (href: string) => {
       setOpen(false);
-      setQuery("");
-      navigate(href);
+      void navigate(href);
     },
     [navigate],
   );
 
+  const filteredItems = query
+    ? allSearchItems.filter(
+        (item) =>
+          item.label.toLowerCase().includes(query.toLowerCase()) ||
+          item.href.toLowerCase().includes(query.toLowerCase()),
+      )
+    : allSearchItems;
+
+  const grouped = filteredItems.reduce<Record<string, SearchItem[]>>((acc, item) => {
+    if (!acc[item.group]) acc[item.group] = [];
+    acc[item.group].push(item);
+    return acc;
+  }, {});
+
   return (
-    <DialogRoot open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="hidden md:inline-flex items-center gap-2 font-mono text-xs text-steel-500 uppercase tracking-widest px-3 py-1.5 border border-steel-800 rounded hover:border-steel-600 transition-colors">
+    <Autocomplete.Root open={open} onOpenChange={setOpen}>
+      <Autocomplete.Trigger className="hidden md:inline-flex items-center gap-2 font-mono text-xs text-steel-500 uppercase tracking-widest px-3 py-1.5 border border-steel-800 rounded hover:border-steel-600 transition-colors">
         <span>Search</span>
         <kbd className="text-[10px] bg-steel-800 px-1.5 py-0.5 rounded border border-steel-700">⌘K</kbd>
-      </DialogTrigger>
+      </Autocomplete.Trigger>
 
-      <DialogContent className="!max-w-lg !p-0 overflow-hidden">
-        <DialogClose className="!top-3 !right-3">&times;</DialogClose>
-        <div className="p-4 border-b border-steel-800">
-          <input
-            type="text"
-            placeholder="Search pages..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="w-full bg-transparent text-zinc-50 text-sm placeholder:text-steel-600 focus:outline-none font-mono"
-            // eslint-disable-next-line jsx-a11y/no-autofocus
-            autoFocus
-          />
-        </div>
-        <div className="max-h-64 overflow-y-auto p-2">
-          {filtered.length === 0 && (
-            <p className="text-steel-500 text-sm text-center py-4 font-mono">No results found</p>
-          )}
-          {filtered.map((cmd) => (
-            <button
-              key={cmd.href}
-              onClick={() => handleSelect(cmd.href)}
-              className="w-full flex items-center gap-3 px-3 py-2.5 rounded text-left hover:bg-steel-800 transition-colors group"
-            >
-              <span className="w-8 h-8 rounded bg-steel-800 group-hover:bg-amber-500/10 border border-steel-700 group-hover:border-amber-500/20 flex items-center justify-center font-display text-sm text-amber-500 transition-colors">
-                {cmd.icon}
-              </span>
-              <span className="text-sm text-zinc-200 group-hover:text-zinc-50 transition-colors">{cmd.label}</span>
-              <span className="ml-auto font-mono text-[10px] text-steel-600">{cmd.href}</span>
-            </button>
-          ))}
-        </div>
-        <div className="border-t border-steel-800 px-4 py-2 flex items-center gap-4">
-          <span className="font-mono text-[10px] text-steel-600">Navigate</span>
-          <span className="font-mono text-[10px] text-steel-500">↑↓ select</span>
-          <span className="font-mono text-[10px] text-steel-500">↵ open</span>
-          <span className="font-mono text-[10px] text-steel-500">esc close</span>
-        </div>
-      </DialogContent>
-    </DialogRoot>
+      <Autocomplete.Portal>
+        <Autocomplete.Backdrop className="fixed inset-0 bg-black/60 z-50" />
+        <Autocomplete.Positioner className="fixed top-[20%] left-1/2 -translate-x-1/2 z-50 w-full max-w-lg" sideOffset={8}>
+          <Autocomplete.Popup className="bg-steel-950 border border-steel-800 rounded-lg shadow-2xl overflow-hidden data-[starting-style]:opacity-0 data-[starting-style]:scale-95 data-[ending-style]:opacity-0 data-[ending-style]:scale-95 transition-[opacity,transform] duration-200">
+            <Autocomplete.Input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search pages, services, projects..."
+              className="w-full bg-transparent text-zinc-50 text-sm placeholder:text-steel-400 focus:outline-none px-4 py-3 border-b border-steel-800"
+            />
+
+            <Autocomplete.List className="max-h-72 overflow-y-auto py-1">
+              {Object.entries(grouped).map(([group, items]) => (
+                <Autocomplete.Group key={group}>
+                  <Autocomplete.GroupLabel className="px-4 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-steel-500 sticky top-0 bg-steel-950">
+                    {group}
+                  </Autocomplete.GroupLabel>
+                  {items.map((item) => (
+                    <Autocomplete.Item
+                      key={item.href}
+                      value={item.label}
+                      onClick={() => handleSelect(item.href)}
+                      className="flex items-center gap-3 px-4 py-2.5 text-left cursor-default hover:bg-steel-800 data-[highlighted]:bg-steel-800 outline-none"
+                    >
+                      <span className="text-sm text-zinc-200 data-[highlighted]:text-zinc-50">{item.label}</span>
+                      <span className="ml-auto font-mono text-[10px] text-steel-600">{item.href}</span>
+                    </Autocomplete.Item>
+                  ))}
+                </Autocomplete.Group>
+              ))}
+              <Autocomplete.Empty className="text-steel-500 text-sm text-center py-4 font-mono">
+                No results found
+              </Autocomplete.Empty>
+            </Autocomplete.List>
+
+            <div className="border-t border-steel-800 px-4 py-2 flex items-center gap-4">
+              <span className="font-mono text-[10px] text-steel-500">↑↓ navigate</span>
+              <span className="font-mono text-[10px] text-steel-500">↵ select</span>
+              <span className="font-mono text-[10px] text-steel-500">esc close</span>
+            </div>
+          </Autocomplete.Popup>
+        </Autocomplete.Positioner>
+      </Autocomplete.Portal>
+    </Autocomplete.Root>
   );
 }

@@ -27,11 +27,11 @@ export function ContactForm({ className }: ContactFormProps) {
       email: "",
       phone: "",
       message: "",
-    } as { name: string; email: string; phone: string; message: string },
+    },
     validators: {
       onSubmit: contactSchema,
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: ({ value }) => {
       void value;
       setSubmitted(true);
     },
@@ -55,7 +55,7 @@ export function ContactForm({ className }: ContactFormProps) {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            form.handleSubmit();
+            void form.handleSubmit();
           }}
           className="space-y-6"
         >

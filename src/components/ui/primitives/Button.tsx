@@ -1,26 +1,8 @@
+import { Link } from "react-router-dom";
 import { cn } from "../../../lib/cn";
 
 type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "danger";
 type ButtonSize = "sm" | "md" | "lg";
-
-type ButtonBaseProps = {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  className?: string;
-  children?: React.ReactNode;
-};
-
-type ButtonAsButton = ButtonBaseProps &
-  Omit<React.ComponentProps<"button">, keyof ButtonBaseProps> & {
-    as?: "button";
-  };
-
-type ButtonAsLink = ButtonBaseProps &
-  Omit<React.ComponentProps<"a">, keyof ButtonBaseProps> & {
-    as: "a";
-  };
-
-type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary: "bg-amber-500 hover:bg-amber-400 text-zinc-900 font-bold",
@@ -36,19 +18,51 @@ const sizeStyles: Record<ButtonSize, string> = {
   lg: "text-sm px-8 py-4 rounded",
 };
 
+interface ButtonBaseProps {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  className?: string;
+  children?: React.ReactNode;
+}
+
+type ButtonAsButton = ButtonBaseProps &
+  Omit<React.ComponentProps<"button">, keyof ButtonBaseProps> & {
+    as?: "button";
+  };
+
+type ButtonAsLink = ButtonBaseProps &
+  Omit<React.ComponentProps<typeof Link>, keyof ButtonBaseProps> & {
+    as: typeof Link;
+    to: string;
+  };
+
+type ButtonAsAnchor = ButtonBaseProps &
+  Omit<React.ComponentProps<"a">, keyof ButtonBaseProps> & {
+    as: "a";
+    href: string;
+  };
+
+type ButtonProps = ButtonAsButton | ButtonAsLink | ButtonAsAnchor;
+
 export function Button(props: ButtonProps) {
   const { variant = "primary", size = "md", className, children, ...rest } = props;
   const classes = cn(
-    "uppercase tracking-widest transition-colors duration-200 inline-flex items-center justify-center gap-2",
+    "uppercase tracking-widest transition-colors duration-200 inline-flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-amber-500 focus-visible:outline-offset-2",
     variantStyles[variant],
     sizeStyles[size],
     className,
   );
 
-  if (props.as === "a") {
+  if (props.as === Link) {
     const { as: _, ...linkProps } = rest as ButtonAsLink;
     void _;
-    return <a className={classes} {...linkProps}>{children}</a>;
+    return <Link className={classes} {...linkProps}>{children}</Link>;
+  }
+
+  if (props.as === "a") {
+    const { as: _, ...anchorProps } = rest as ButtonAsAnchor;
+    void _;
+    return <a className={classes} {...anchorProps}>{children}</a>;
   }
 
   const { as: _, ...buttonProps } = rest as ButtonAsButton;

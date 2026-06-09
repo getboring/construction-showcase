@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -12,7 +12,8 @@ export function useGsapScroll(
   options?: { start?: string; end?: string; scrub?: boolean | number; once?: boolean },
 ) {
   const ref = useRef<HTMLDivElement>(null);
-  const stableOptions = useMemo(() => options, [options?.start, options?.end, options?.scrub, options?.once]);
+  const { start, end, scrub, once } = options ?? {};
+  const stableOptions = useMemo(() => ({ start, end, scrub, once }), [start, end, scrub, once]);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -20,12 +21,12 @@ export function useGsapScroll(
       if (!ref.current) return;
       ScrollTrigger.create({
         trigger: ref.current,
-        start: stableOptions?.start ?? "top 80%",
-        end: stableOptions?.end ?? "bottom 20%",
-        scrub: stableOptions?.scrub ?? false,
-        once: stableOptions?.once ?? false,
-        onEnter: stableOptions?.once ? (self) => callback(self) : undefined,
-        onUpdate: stableOptions?.once ? undefined : (self) => callback(self),
+        start: stableOptions.start ?? "top 80%",
+        end: stableOptions.end ?? "bottom 20%",
+        scrub: stableOptions.scrub ?? false,
+        once: stableOptions.once ?? false,
+        onEnter: stableOptions.once ? (self) => callback(self) : undefined,
+        onUpdate: stableOptions.once ? undefined : (self) => callback(self),
       });
     }, ref);
 
@@ -37,6 +38,10 @@ export function useGsapScroll(
 
 export function useGsapPin(callback: (tl: gsap.core.Timeline) => void) {
   const ref = useRef<HTMLDivElement>(null);
+  const callbackRef = useRef(callback);
+  useLayoutEffect(() => {
+    callbackRef.current = callback;
+  });
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -51,11 +56,11 @@ export function useGsapPin(callback: (tl: gsap.core.Timeline) => void) {
           pin: true,
         },
       });
-      callback(tl);
+      callbackRef.current(tl);
     }, ref);
 
     return () => ctx.revert();
-  }, [callback]);
+  }, []);
 
   return ref;
 }
@@ -66,12 +71,13 @@ export function useGsapCounter(
 ) {
   const ref = useRef<HTMLSpanElement>(null);
   const obj = useRef({ val: 0 });
-  const stableOptions = useMemo(() => options, [options?.decimals, options?.duration, options?.suffix]);
+  const { decimals, duration, suffix } = options ?? {};
+  const stableOptions = useMemo(() => ({ decimals, duration, suffix }), [decimals, duration, suffix]);
 
   useEffect(() => {
     if (prefersReducedMotion()) {
       if (ref.current) {
-        ref.current.textContent = stableOptions?.decimals
+        ref.current.textContent = stableOptions.decimals
           ? target.toFixed(stableOptions.decimals)
           : Math.round(target).toLocaleString();
       }
@@ -81,7 +87,7 @@ export function useGsapCounter(
       if (!ref.current) return;
       gsap.to(obj.current, {
         val: target,
-        duration: stableOptions?.duration ?? 2,
+        duration: stableOptions.duration ?? 2,
         ease: "power2.out",
         scrollTrigger: {
           trigger: ref.current,
@@ -90,7 +96,7 @@ export function useGsapCounter(
         },
         onUpdate: () => {
           if (!ref.current) return;
-          ref.current.textContent = stableOptions?.decimals
+          ref.current.textContent = stableOptions.decimals
             ? obj.current.val.toFixed(stableOptions.decimals)
             : Math.round(obj.current.val).toLocaleString();
         },
@@ -107,14 +113,15 @@ export function useGsapClipPath(
   options?: { startInset?: string; endInset?: string },
 ) {
   const ref = useRef<HTMLDivElement>(null);
-  const stableOptions = useMemo(() => options, [options?.startInset, options?.endInset]);
+  const { startInset, endInset } = options ?? {};
+  const stableOptions = useMemo(() => ({ startInset, endInset }), [startInset, endInset]);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
       if (!ref.current) return;
       gsap.to(ref.current, {
-        clipPath: `inset(${stableOptions?.endInset ?? "0 50% 0 50%"})`,
+        clipPath: `inset(${stableOptions.endInset ?? "0 50% 0 50%"})`,
         ease: "none",
         scrollTrigger: {
           trigger: ref.current,
@@ -133,7 +140,9 @@ export function useGsapClipPath(
 
 export function useGsapParallax(yRange: [number, number] = [-60, 60]) {
   const ref = useRef<HTMLDivElement>(null);
-  const stableRange = useMemo(() => yRange, [yRange[0], yRange[1]]);
+  const yStart = yRange[0];
+  const yEnd = yRange[1];
+  const stableRange = useMemo(() => [yStart, yEnd] as const, [yStart, yEnd]);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -163,7 +172,8 @@ export function useGsapParallax(yRange: [number, number] = [-60, 60]) {
 
 export function useGsapStagger(selector: string, options?: { y?: number; stagger?: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const stableOptions = useMemo(() => options, [options?.y, options?.stagger]);
+  const { y, stagger } = options ?? {};
+  const stableOptions = useMemo(() => ({ y, stagger }), [y, stagger]);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -171,12 +181,12 @@ export function useGsapStagger(selector: string, options?: { y?: number; stagger
       if (!ref.current) return;
       gsap.fromTo(
         selector,
-        { opacity: 0, y: stableOptions?.y ?? 40 },
+        { opacity: 0, y: stableOptions.y ?? 40 },
         {
           opacity: 1,
           y: 0,
           duration: 0.6,
-          stagger: stableOptions?.stagger ?? 0.1,
+          stagger: stableOptions.stagger ?? 0.1,
           ease: "power2.out",
           scrollTrigger: {
             trigger: ref.current,

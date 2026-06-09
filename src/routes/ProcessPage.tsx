@@ -7,6 +7,7 @@ export function ProcessPage() {
   useRouteMeta({
     title: "Our Process",
     description: "Six phases. Zero surprises. Every Titan project follows the same proven process from groundbreaking to handoff.",
+    canonicalPath: "/process",
   });
 
   return (

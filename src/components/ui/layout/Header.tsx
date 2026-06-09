@@ -1,10 +1,35 @@
-import { navItems } from "../../../lib/data";
+import { navItems, services, featuredProjects } from "../../../lib/data";
 import { Wordmark, Button } from "../primitives";
+import { NavMenu } from "../primitives/NavigationMenu";
 import { DrawerRoot, DrawerContent } from "../primitives/Drawer";
 import { CommandMenu } from "../patterns/CommandMenu";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "../../../lib/cn";
+
+const megaNavItems = navItems.map((item) => {
+  if (item.href === "/services") {
+    return {
+      ...item,
+      children: services.map((s) => ({
+        label: s.title,
+        href: `/services/${s.slug}`,
+        description: s.description.length > 80 ? s.description.slice(0, 77) + "..." : s.description,
+      })),
+    };
+  }
+  if (item.href === "/projects") {
+    return {
+      ...item,
+      children: featuredProjects.slice(0, 4).map((p) => ({
+        label: p.name,
+        href: `/projects/${p.slug}`,
+        description: p.location,
+      })),
+    };
+  }
+  return { ...item };
+});
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -48,7 +73,9 @@ export function Header() {
           <Wordmark />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
+        <NavMenu items={megaNavItems} currentPath={location.pathname} className="hidden lg:flex" />
+
+        <nav className="hidden md:flex lg:hidden items-center gap-1" aria-label="Main navigation">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -67,7 +94,7 @@ export function Header() {
 
         <div className="flex items-center gap-3">
           <CommandMenu />
-          <Button variant="primary" size="sm" className="hidden sm:inline-flex" as="a" href="/quote">
+          <Button variant="primary" size="sm" className="hidden sm:inline-flex" as={Link} to="/quote">
             Start Project
           </Button>
 
@@ -127,7 +154,7 @@ export function Header() {
             </nav>
 
             <div className="pt-4 border-t border-steel-800 mt-4">
-              <Button variant="primary" size="md" className="w-full" as="a" href="/quote">
+              <Button variant="primary" size="md" className="w-full" as={Link} to="/quote">
                 Start Project
               </Button>
             </div>

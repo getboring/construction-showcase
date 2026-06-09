@@ -15,6 +15,7 @@ export function HomePage() {
     title: "Commercial Construction, Done Right",
     description: "Industrial construction since 1998. Commercial, healthcare, industrial, and residential construction across the Southeast.",
     ogImage: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80&auto=format&fit=crop",
+    canonicalPath: "/",
   });
 
   return (

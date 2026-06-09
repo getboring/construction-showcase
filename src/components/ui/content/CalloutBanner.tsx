@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { cn } from "../../../lib/cn";
 
 interface CalloutBannerProps {
@@ -15,12 +16,12 @@ export function CalloutBanner({ title, description, action, className }: Callout
       )}
       <p className="text-steel-300 text-sm leading-relaxed">{description}</p>
       {action && (
-        <a
-          href={action.href}
+        <Link
+          to={action.href}
           className="inline-block mt-4 font-mono text-xs text-amber-500 uppercase tracking-widest hover:text-amber-400 transition-colors"
         >
           {action.label} &rarr;
-        </a>
+        </Link>
       )}
     </div>
   );

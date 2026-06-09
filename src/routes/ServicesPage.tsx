@@ -7,6 +7,7 @@ export function ServicesPage() {
   useRouteMeta({
     title: "Services",
     description: "From pre-construction planning through final punch list, Titan delivers every phase of the construction lifecycle.",
+    canonicalPath: "/services",
   });
 
   return (

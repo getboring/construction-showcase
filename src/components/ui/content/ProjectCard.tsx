@@ -26,11 +26,13 @@ export function ProjectCard({ project, variant = "default", className }: Project
   }
 
   return (
-    <div className={cn("relative h-[50vh] min-h-[400px] rounded-lg overflow-hidden group image-grain", className)}>
+    <div className={cn("relative h-[40vh] sm:h-[50vh] min-h-[320px] sm:min-h-[400px] rounded-lg overflow-hidden group image-grain", className)}>
       <img
         src={project.image}
         alt={project.name}
         loading="lazy"
+        width={1600}
+        height={900}
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />

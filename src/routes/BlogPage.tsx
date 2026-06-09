@@ -6,6 +6,7 @@ export function BlogPage() {
   useRouteMeta({
     title: "Blog",
     description: "Project updates, industry insights, and company news from Titan Build Co.",
+    canonicalPath: "/blog",
   });
 
   return (

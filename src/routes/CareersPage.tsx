@@ -16,6 +16,7 @@ export function CareersPage() {
   useRouteMeta({
     title: "Careers",
     description: "Build with us. We hire builders, not resumes. Open positions in Nashville, Knoxville, and Chattanooga.",
+    canonicalPath: "/careers",
   });
 
   return (

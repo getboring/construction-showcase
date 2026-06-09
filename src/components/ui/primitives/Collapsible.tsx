@@ -14,7 +14,7 @@ export function CollapsibleSection({ title, children, defaultOpen = false, class
       <Collapsible.Trigger className="flex items-center justify-between w-full py-5 text-left group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 rounded">
         <span className="font-display text-lg text-zinc-50 group-hover:text-amber-400 transition-colors">{title}</span>
         <svg
-          className="w-5 h-5 text-steel-500 group-hover:text-amber-400 transition-transform data-[panel-open]:rotate-180"
+          className="w-5 h-5 text-steel-500 group-hover:text-amber-400 transition-transform group-data-[panel-open]:rotate-180"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 
+const SITE_URL = "https://titanbuild.co";
+
 export interface RouteMeta {
   title: string;
   description?: string;
   ogImage?: string;
   ogType?: string;
+  canonicalPath?: string;
 }
 
 const defaults: RouteMeta = {
@@ -20,22 +23,38 @@ export function useRouteMeta(meta: RouteMeta) {
     document.title = title;
 
     const setMeta = (property: string, content: string) => {
-      let el = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement | null;
+      let el: HTMLMetaElement | null = document.querySelector(`meta[property="${property}"]`);
       if (!el) {
-        el = document.querySelector(`meta[name="${property}"]`) as HTMLMetaElement | null;
+        el = document.querySelector(`meta[name="${property}"]`);
       }
       if (el) {
         el.setAttribute("content", content);
       }
     };
 
-    setMeta("description", meta.description ?? defaults.description ?? "");
+    const setCanonical = (href: string) => {
+      let link: HTMLLinkElement | null = document.querySelector('link[rel="canonical"]');
+      if (!link) {
+        link = document.createElement("link");
+        link.rel = "canonical";
+        document.head.appendChild(link);
+      }
+      link.href = href;
+    };
+
+    const ogImage = meta.ogImage ?? defaults.ogImage!;
+    const description = meta.description ?? defaults.description ?? "";
+    const url = meta.canonicalPath ? `${SITE_URL}${meta.canonicalPath}` : `${SITE_URL}${window.location.pathname}`;
+
+    setCanonical(url);
+    setMeta("description", description);
     setMeta("og:title", title);
-    setMeta("og:description", meta.description ?? defaults.description ?? "");
-    setMeta("og:image", meta.ogImage ?? defaults.ogImage ?? "");
+    setMeta("og:description", description);
+    setMeta("og:image", ogImage);
+    setMeta("og:url", url);
     setMeta("og:type", meta.ogType ?? defaults.ogType ?? "website");
     setMeta("twitter:title", title);
-    setMeta("twitter:description", meta.description ?? defaults.description ?? "");
-    setMeta("twitter:image", meta.ogImage ?? defaults.ogImage ?? "");
-  }, [meta.title, meta.description, meta.ogImage, meta.ogType]);
+    setMeta("twitter:description", description);
+    setMeta("twitter:image", ogImage);
+  }, [meta.title, meta.description, meta.ogImage, meta.ogType, meta.canonicalPath]);
 }

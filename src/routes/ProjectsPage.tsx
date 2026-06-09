@@ -7,6 +7,7 @@ export function ProjectsPage() {
   useRouteMeta({
     title: "Projects",
     description: "Eight hundred forty-seven projects across four states. Here are some of the ones that changed skylines.",
+    canonicalPath: "/projects",
   });
 
   return (

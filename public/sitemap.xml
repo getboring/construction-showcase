@@ -3,7 +3,18 @@
   <url><loc>https://titanbuild.co/</loc><priority>1.0</priority></url>
   <url><loc>https://titanbuild.co/about</loc><priority>0.8</priority></url>
   <url><loc>https://titanbuild.co/services</loc><priority>0.9</priority></url>
+  <url><loc>https://titanbuild.co/services/general-contracting</loc><priority>0.8</priority></url>
+  <url><loc>https://titanbuild.co/services/design-build</loc><priority>0.8</priority></url>
+  <url><loc>https://titanbuild.co/services/construction-management</loc><priority>0.8</priority></url>
+  <url><loc>https://titanbuild.co/services/pre-construction</loc><priority>0.7</priority></url>
+  <url><loc>https://titanbuild.co/services/steel-erection</loc><priority>0.7</priority></url>
+  <url><loc>https://titanbuild.co/services/concrete</loc><priority>0.7</priority></url>
   <url><loc>https://titanbuild.co/projects</loc><priority>0.9</priority></url>
+  <url><loc>https://titanbuild.co/projects/meridian-tower</loc><priority>0.8</priority></url>
+  <url><loc>https://titanbuild.co/projects/riverside-commons</loc><priority>0.7</priority></url>
+  <url><loc>https://titanbuild.co/projects/summit-medical-center</loc><priority>0.7</priority></url>
+  <url><loc>https://titanbuild.co/projects/harbor-point-residences</loc><priority>0.7</priority></url>
+  <url><loc>https://titanbuild.co/projects/eastgate-industrial-park</loc><priority>0.7</priority></url>
   <url><loc>https://titanbuild.co/process</loc><priority>0.7</priority></url>
   <url><loc>https://titanbuild.co/fleet</loc><priority>0.6</priority></url>
   <url><loc>https://titanbuild.co/safety</loc><priority>0.7</priority></url>

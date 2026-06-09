@@ -1,13 +1,13 @@
 import { useRouteMeta } from "../lib/useRouteMeta";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 import { PageHero, SectionDivider, Breadcrumbs } from "../components/ui/layout";
-import { featuredProjects, testimonials, formatCents, formatSqft } from "../lib/data";
+import { testimonials, formatCents, formatSqft } from "../lib/data";
 import { CTASection } from "../components/ui/patterns/CTASection";
 import { ImageLightbox } from "../components/ui/content/ImageLightbox";
 import { TestimonialCard } from "../components/ui/content/TestimonialCard";
 import { Meter } from "../components/ui/primitives/Meter";
-import { JsonLd, projectLd } from "../lib/jsonLd";
+import { JsonLd } from "../lib/jsonLd";
+import { projectLd } from "../lib/jsonLd-data";
 
 const statusProgress: Record<string, number> = {
   pre_construction: 10,
@@ -33,29 +33,15 @@ const projectImages: Record<string, string[]> = {
 };
 
 export function ProjectDetailPage() {
-  const { slug } = useParams();
-  const project = featuredProjects.find((p) => p.slug === slug);
+  const loaderData: { project: { id: string; slug: string; name: string; type: string; status: string; location: string; sqft: number; valueCents: number; year: number; description: string; client: string | null; completionDate: string | null; image: string; } } = useLoaderData();
+  const project = loaderData.project;
 
   useRouteMeta({
-    title: project ? project.name : "Project Not Found",
-    description: project ? project.description : "The project you're looking for doesn't exist.",
-    ogImage: project?.image,
+    title: project.name,
+    description: project.description,
+    ogImage: project.image,
+    canonicalPath: `/projects/${project.slug}`,
   });
-
-  if (!project) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center px-6">
-        <div className="text-center">
-          <p className="font-mono text-amber-500 text-xs uppercase tracking-[0.2em] mb-4">404</p>
-          <h1 className="font-display text-4xl text-zinc-50 mb-4">PROJECT NOT FOUND</h1>
-          <p className="text-steel-400 mb-8">The project you're looking for doesn't exist.</p>
-          <Link to="/projects" className="bg-amber-500 hover:bg-amber-400 text-steel-950 font-bold uppercase tracking-widest text-sm px-8 py-4 rounded transition-colors inline-block">
-            View All Projects
-          </Link>
-        </div>
-      </div>
-    );
-  }
 
   const images = projectImages[project.slug] ?? [project.image];
   const projectTestimonials = testimonials.filter((t) => t.projectId === project.id);

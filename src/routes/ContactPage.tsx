@@ -7,6 +7,7 @@ export function ContactPage() {
   useRouteMeta({
     title: "Contact",
     description: "Get in touch with Titan Build Co. Whether you're ready to break ground or just exploring options, we're here.",
+    canonicalPath: "/contact",
   });
 
   return (

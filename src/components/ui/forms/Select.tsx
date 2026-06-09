@@ -30,10 +30,10 @@ export function Select({
       <BaseSelect.Trigger
         className={cn(
           "flex items-center justify-between bg-steel-950 border rounded px-4 py-3 font-body text-sm",
-          "focus:outline-none focus:ring-2 focus:ring-offset-0 transition-colors",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 transition-colors",
           error
-            ? "border-red-500/50 focus:border-red-400 focus:ring-red-500/20 text-red-300"
-            : "border-steel-700 focus:border-amber-500 focus:ring-amber-500/20 text-zinc-50",
+            ? "border-red-500/50 focus-visible:border-red-400 focus-visible:ring-red-500/20 text-red-300"
+            : "border-steel-700 focus-visible:border-amber-500 focus-visible:ring-amber-500/20 text-zinc-50",
           !value && "text-steel-600",
           className,
         )}
@@ -47,7 +47,7 @@ export function Select({
       </BaseSelect.Trigger>
       <BaseSelect.Portal>
         <BaseSelect.Positioner sideOffset={4}>
-          <BaseSelect.Popup className="bg-steel-900 border border-steel-700 rounded shadow-lg py-1 z-50 min-w-[200px]">
+          <BaseSelect.Popup className="bg-steel-900 border border-steel-700 rounded shadow-lg py-1 z-50 min-w-[200px] data-[starting-style]:opacity-0 data-[starting-style]:scale-95 data-[ending-style]:opacity-0 data-[ending-style]:scale-95 data-[starting-style]:-translate-y-1 data-[ending-style]:-translate-y-1 transition-opacity transition-transform duration-150">
             {options.map((opt) => (
               <BaseSelect.Item
                 key={opt.value}

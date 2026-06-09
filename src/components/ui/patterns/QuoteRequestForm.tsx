@@ -67,11 +67,11 @@ export function QuoteRequestForm() {
       email: "",
       phone: "",
       company: "",
-    } as { projectType: string; timeline: string; budgetCents: string; scope: string; name: string; email: string; phone: string; company: string },
+    },
     validators: {
       onSubmit: fullSchema,
     },
-    onSubmit: async () => {
+    onSubmit: () => {
       setSubmitted(true);
     },
   });
@@ -151,7 +151,7 @@ export function QuoteRequestForm() {
           onSubmit={(e) => {
             e.preventDefault();
             if (step === "contact") {
-              form.handleSubmit();
+              void form.handleSubmit();
             }
           }}
           className="space-y-6"
@@ -226,6 +226,7 @@ export function QuoteRequestForm() {
                       Describe the work, square footage, and any special requirements.
                     </p>
                     <Textarea
+                      id="quote-scope"
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -257,6 +258,7 @@ export function QuoteRequestForm() {
                     <div className="flex flex-col gap-1.5">
                       <label htmlFor="quote-name" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Full Name</label>
                       <Input
+                        id="quote-name"
                         name={field.name}
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
@@ -277,6 +279,7 @@ export function QuoteRequestForm() {
                     <div className="flex flex-col gap-1.5">
                       <label htmlFor="quote-email" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Email</label>
                       <Input
+                        id="quote-email"
                         name={field.name}
                         type="email"
                         value={field.state.value}
@@ -300,6 +303,7 @@ export function QuoteRequestForm() {
                     <div className="flex flex-col gap-1.5">
                       <label htmlFor="quote-phone" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Phone (Optional)</label>
                       <Input
+                        id="quote-phone"
                         name={field.name}
                         type="tel"
                         value={field.state.value ?? ""}
@@ -315,6 +319,7 @@ export function QuoteRequestForm() {
                     <div className="flex flex-col gap-1.5">
                       <label htmlFor="quote-company" className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Company (Optional)</label>
                       <Input
+                        id="quote-company"
                         name={field.name}
                         value={field.state.value ?? ""}
                         onChange={(e) => field.handleChange(e.target.value)}
