@@ -105,14 +105,14 @@ const router = createBrowserRouter([
         index: true,
         element: <LazyRoute Component={HomePage} />,
         loader: () => {
-          return { title: "Titan Build Co. | Commercial Construction, Done Right." };
+          return { title: "J.A. Street & Associates | Commercial Construction, Done Right." };
         },
       },
       {
         path: "about",
         element: <LazyRoute Component={AboutPage} />,
         loader: () => {
-          return { title: "About | Titan Build Co." };
+          return { title: "About | J.A. Street & Associates" };
         },
       },
       {

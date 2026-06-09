@@ -1,30 +1,30 @@
 export const organizationLd: Record<string, unknown> = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "TITAN Build Co.",
-  url: "https://titanbuild.co",
-  logo: "https://titanbuild.co/favicon.svg",
-  description: "Industrial construction since 1998. Commercial, healthcare, industrial, and residential construction across the Southeast.",
+  name: "J.A. Street & Associates",
+  url: "https://jastreet.com",
+  logo: "https://jastreet.com/favicon.svg",
+  description: "Respected general contracting firm in Northeast Tennessee and Southwest Virginia. Commercial, industrial, and institutional construction since 1985.",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Nashville",
+    addressLocality: "Blountville",
     addressRegion: "TN",
     addressCountry: "US",
   },
-  telephone: "(615) 555-0199",
-  email: "bids@titanbuild.co",
+  telephone: "(423) 323-8017",
+  email: "jastreet@jastreet.com",
   sameAs: [],
-  foundingDate: "1998",
+  foundingDate: "1985",
   numberOfEmployees: {
     "@type": "QuantitativeValue",
-    value: 150,
+    value: 35,
   },
 };
 
 export const localBusinessLd: Record<string, unknown> = {
   ...organizationLd,
   "@type": "LocalBusiness",
-  "@id": "https://titanbuild.co",
+  "@id": "https://jastreet.com",
   priceRange: "$$$$$",
   openingHoursSpecification: [
     {

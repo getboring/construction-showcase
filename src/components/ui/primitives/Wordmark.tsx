@@ -1,6 +1,6 @@
 export function Wordmark() {
   return (
-    <div className="flex items-center gap-2" aria-label="TITAN Build Co.">
+    <div className="flex items-center gap-2" aria-label="J.A. Street & Associates">
       <svg
         width="28"
         height="28"
@@ -14,7 +14,7 @@ export function Wordmark() {
         <path d="M14 10L19 22H9L14 10Z" fill="#0a0a0b" />
       </svg>
       <div className="flex flex-col leading-none">
-        <span className="font-display text-xl text-zinc-50 tracking-wide">TITAN</span>
+        <span className="font-display text-xl text-zinc-50 tracking-wide">J.A. Street</span>
         <span className="font-mono text-[8px] text-amber-500 uppercase tracking-[0.25em] mt-0.5">Build Co.</span>
       </div>
     </div>

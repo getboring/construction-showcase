@@ -18,8 +18,9 @@ export function NumberCounters() {
 }
 
 function StatBlock({ stat }: { stat: (typeof stats)[number] }) {
+  const decimals = "decimals" in stat ? (stat as { decimals: number }).decimals : undefined;
   const counterRef = useGsapCounter(stat.value, {
-    decimals: "decimals" in stat ? stat.decimals : undefined,
+    decimals,
     suffix: stat.suffix,
   });
 

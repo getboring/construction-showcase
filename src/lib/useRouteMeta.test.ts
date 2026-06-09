@@ -11,12 +11,12 @@ describe("useRouteMeta", () => {
 
   it("sets document title with site suffix", () => {
     renderHook(() => useRouteMeta({ title: "About" }));
-    expect(document.title).toBe("About | Titan Build Co.");
+    expect(document.title).toBe("About | J.A. Street & Associates");
   });
 
   it("falls back to default title when empty", () => {
     renderHook(() => useRouteMeta({ title: "" }));
-    expect(document.title).toContain("TITAN Build Co.");
+    expect(document.title).toContain("J.A. Street & Associates");
   });
 
   it("creates canonical link element", () => {
@@ -36,7 +36,7 @@ describe("useRouteMeta", () => {
     `;
     renderHook(() => useRouteMeta({ title: "Services", description: "Our services" }));
     const ogTitle = document.querySelector('meta[property="og:title"]');
-    expect(ogTitle?.getAttribute("content")).toBe("Services | Titan Build Co.");
+    expect(ogTitle?.getAttribute("content")).toBe("Services | J.A. Street & Associates");
     const ogDesc = document.querySelector('meta[property="og:description"]');
     expect(ogDesc?.getAttribute("content")).toBe("Our services");
   });

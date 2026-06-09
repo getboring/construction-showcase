@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const SITE_URL = "https://titanbuild.co";
+const SITE_URL = "https://jastreet.com";
 
 export interface RouteMeta {
   title: string;
@@ -11,7 +11,7 @@ export interface RouteMeta {
 }
 
 const defaults: RouteMeta = {
-  title: "TITAN Build Co. | Commercial Construction, Done Right.",
+  title: "J.A. Street & Associates | Commercial Construction, Done Right.",
   description: "Industrial construction since 1998. Commercial, healthcare, industrial, and residential construction across the Southeast.",
   ogImage: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80&auto=format&fit=crop",
   ogType: "website",
@@ -19,7 +19,7 @@ const defaults: RouteMeta = {
 
 export function useRouteMeta(meta: RouteMeta) {
   useEffect(() => {
-    const title = meta.title ? `${meta.title} | Titan Build Co.` : defaults.title;
+    const title = meta.title ? `${meta.title} | J.A. Street & Associates` : defaults.title;
     document.title = title;
 
     const setMeta = (property: string, content: string) => {

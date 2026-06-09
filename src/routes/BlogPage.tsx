@@ -5,7 +5,7 @@ import { PageHero, SectionDivider } from "../components/ui/layout";
 export function BlogPage() {
   useRouteMeta({
     title: "Blog",
-    description: "Project updates, industry insights, and company news from Titan Build Co.",
+    description: "Project updates, industry insights, and company news from J.A. Street & Associates",
     canonicalPath: "/blog",
   });
 

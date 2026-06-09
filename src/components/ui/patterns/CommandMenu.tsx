@@ -26,11 +26,11 @@ const allSearchItems: SearchItem[] = [
   { label: "Pre-Construction", href: "/services/pre-construction", group: "Services" },
   { label: "Steel Erection", href: "/services/steel-erection", group: "Services" },
   { label: "Concrete & Foundations", href: "/services/concrete", group: "Services" },
-  { label: "Meridian Tower", href: "/projects/meridian-tower", group: "Projects" },
-  { label: "Riverside Commons", href: "/projects/riverside-commons", group: "Projects" },
-  { label: "Summit Medical Center", href: "/projects/summit-medical-center", group: "Projects" },
-  { label: "Harbor Point Residences", href: "/projects/harbor-point-residences", group: "Projects" },
-  { label: "Eastgate Industrial Park", href: "/projects/eastgate-industrial-park", group: "Projects" },
+  { label: "Seaman Corporation Phase I", href: "/projects/seaman-corporation-phase-i", group: "Projects" },
+  { label: "Towne Acres Elementary School", href: "/projects/towne-acres-elementary-school", group: "Projects" },
+  { label: "Food City Store 706", href: "/projects/food-city-store-706", group: "Projects" },
+  { label: "Blountville Recreational Center", href: "/projects/blountville-recreational-center", group: "Projects" },
+  { label: "Wallace Ford Dealership", href: "/projects/wallace-ford-dealership", group: "Projects" },
 ];
 
 export function CommandMenu() {

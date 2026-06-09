@@ -15,19 +15,19 @@ import { testimonials } from "../lib/data";
 
 export function HomePage() {
   useRouteMeta({
-    title: "Commercial Construction, Done Right",
-    description: "Industrial construction since 1998. Commercial, healthcare, industrial, and residential construction across the Southeast.",
-    ogImage: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80&auto=format&fit=crop",
+    title: "Commercial Construction | J.A. Street & Associates",
+    description: "Respected general contracting firm in Northeast Tennessee and Southwest Virginia. Commercial, industrial, and institutional construction since 1985.",
+    ogImage: "",
     canonicalPath: "/",
   });
 
   return (
     <>
       <Hero
-        label="Industrial Construction Since 1998"
+        label="General Contractors Since 1985"
         title="WE BUILD THE THINGS THAT MATTER"
         titleHighlight="THE THINGS"
-        description="Commercial. Healthcare. Industrial. Residential. Twenty-seven years of steel, concrete, and reputation across the Southeast."
+        description="Commercial. Industrial. Institutional. Forty-one years of steel, concrete, and reputation across Northeast Tennessee and Southwest Virginia."
         primaryAction={{ label: "See Our Work", href: "/projects" }}
         secondaryAction={{ label: "Get a Bid", href: "/quote" }}
       />
@@ -43,10 +43,10 @@ export function HomePage() {
             <span className="w-6 h-px bg-burgundy-500 inline-block" />
           </p>
           <h2 className="font-display text-5xl md:text-7xl text-steel-950 leading-none mb-6">
-            27 YEARS OF BUILDING<br />THE SOUTHEAST
+            41 YEARS OF BUILDING<br />THE SOUTHEAST
           </h2>
           <p className="text-steel-600 text-lg max-w-3xl mx-auto leading-relaxed">
-            Like the firms we admire, we believe construction is a relationship business. Every project starts with trust, and every handshake is backed by decades of delivered results.
+            J.A. Street & Associates is a locally-owned general contracting firm built on a team approach. Every project starts with trust, and every handshake is backed by decades of delivered results.
           </p>
         </div>
       </Section>

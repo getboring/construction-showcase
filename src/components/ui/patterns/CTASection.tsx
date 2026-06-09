@@ -26,7 +26,7 @@ export function CTASection() {
           LET&apos;S BUILD<br />SOMETHING.
         </h2>
         <p className="text-steel-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-          Pre-construction, design-build, general contracting, or construction management. We bring 27 years of steel, concrete, and reputation to every bid.
+          Pre-construction, design-build, general contracting, or construction management. We bring 41 years of steel, concrete, and reputation to every bid.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/quote" className="bg-amber-500 hover:bg-amber-400 text-steel-950 font-bold uppercase tracking-widest text-sm px-8 py-4 rounded transition-colors inline-flex items-center justify-center">

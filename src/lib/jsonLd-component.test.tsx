@@ -26,7 +26,7 @@ describe("JsonLd component", () => {
     const script = document.querySelector('script[type="application/ld+json"]');
     const parsed = JSON.parse(script?.textContent ?? "") as Record<string, unknown>;
     expect(parsed["@type"]).toBe("Organization");
-    expect(parsed.name).toBe("TITAN Build Co.");
+    expect(parsed.name).toBe("J.A. Street & Associates");
   });
 
   it("renders faqLd correctly", () => {

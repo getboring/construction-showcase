@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://titanbuild.co/sitemap.xml
+Sitemap: https://jastreet.com/sitemap.xml

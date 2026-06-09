@@ -6,7 +6,7 @@ import { siteConfig } from "../lib/data";
 export function ContactPage() {
   useRouteMeta({
     title: "Contact",
-    description: "Get in touch with Titan Build Co. Whether you're ready to break ground or just exploring options, we're here.",
+    description: "Get in touch with J.A. Street & Associates. Whether you're ready to break ground or just exploring options, we're here.",
     canonicalPath: "/contact",
   });
 

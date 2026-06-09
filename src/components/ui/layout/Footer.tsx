@@ -10,7 +10,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           <div>
-            <Link to="/" aria-label="TITAN Build Co. home">
+            <Link to="/" aria-label="J.A. Street & Associates home">
               <Wordmark />
             </Link>
             <p className="text-burgundy-200/60 text-sm mt-4 leading-relaxed">
