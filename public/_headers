@@ -1,18 +1,5 @@
 /*
-  Security headers for Cloudflare Pages
-  Strict-Transport-Security: enforce HTTPS
-  X-Content-Type-Options: prevent MIME sniffing
-  X-Frame-Options: prevent clickjacking
-  Referrer-Policy: strict origin cross-origin
-  Permissions-Policy: restrict browser features
-  Content-Security-Policy: allow fonts, images, scripts from used origins
-  Note: script-src 'unsafe-inline' is required for Vite dev server HMR.
-  For production, consider nonce-based CSP via Cloudflare Workers or _headers transformation.
-*/
-
-/*
-  Catch-all for preview URLs, branch deploys, and localhost.
-  Same security headers as production domain.
+  Security headers for all routes
 */
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
@@ -21,16 +8,30 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  X-Robots-Tag: noindex
 
+/*
+  Fingerprinted Vite assets - aggressive caching
+*/
+/assets/*
+  Cache-Control: public, max-age=31556952, immutable
+
+/*
+  Static assets - long cache
+*/
+/*.svg
+  Cache-Control: public, max-age=31556952, immutable
+/*.png
+  Cache-Control: public, max-age=31556952, immutable
+/*.jpg
+  Cache-Control: public, max-age=31556952, immutable
+/*.woff2
+  Cache-Control: public, max-age=31556952, immutable
+
+/*
+  Production domain - indexable, no rewrite
+*/
 https://titanbuild.co/*
-  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
-
-http://titanbuild.co/*
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
