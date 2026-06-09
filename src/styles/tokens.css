@@ -28,6 +28,25 @@
   --color-safety: #22c55e;
   --color-hazard: #ef4444;
 
+  /* JA Street brand heritage - burgundy/maroon for trust and warmth */
+  --color-burgundy-950: #2d0a0b;
+  --color-burgundy-900: #4a1112;
+  --color-burgundy-800: #5e1919;
+  --color-burgundy-700: #6e201f;
+  --color-burgundy-600: #7a1e1f;
+  --color-burgundy-500: #8b2522;
+  --color-burgundy-400: #a33832;
+  --color-burgundy-300: #c45a52;
+  --color-burgundy-200: #d9877f;
+  --color-burgundy-100: #f0c4bf;
+  --color-burgundy-50: #fbe8e6;
+
+  /* Warm section backgrounds */
+  --color-warm-50: #faf9f7;
+  --color-warm-100: #f5f3f0;
+  --color-warm-200: #ede9e3;
+  --color-warm-300: #ddd7cd;
+
   --font-display: "Bebas Neue", "Impact", ui-sans-serif, sans-serif;
   --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", "Menlo", ui-monospace, monospace;

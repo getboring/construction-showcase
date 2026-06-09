@@ -3,6 +3,7 @@ import { cn } from "../../../lib/cn";
 
 interface TestimonialCardProps {
   testimonial: Testimonial;
+  variant?: "dark" | "warm";
   className?: string;
 }
 
@@ -17,19 +18,40 @@ function getFallbackPhoto(id: string): string {
   return fallbackPhotos[index];
 }
 
-export function TestimonialCard({ testimonial, className }: TestimonialCardProps) {
+export function TestimonialCard({ testimonial, variant = "dark", className }: TestimonialCardProps) {
   const photo = testimonial.photo || getFallbackPhoto(testimonial.id);
 
   return (
-    <div className={cn("bg-steel-900/60 border border-steel-800 rounded-lg p-6", className)}>
+    <div className={cn(
+      "rounded-lg p-6 border",
+      variant === "dark" && "bg-steel-900/60 border-steel-800",
+      variant === "warm" && "bg-white border-burgundy-100 shadow-sm",
+      className,
+    )}>
       <div className="flex items-center gap-3 mb-4">
-        <img src={photo} alt={testimonial.name} loading="lazy" width={40} height={40} className="w-10 h-10 rounded-full object-cover border border-steel-700" />
+        <img src={photo} alt={testimonial.name} loading="lazy" width={40} height={40} className={cn(
+          "w-10 h-10 rounded-full object-cover",
+          variant === "dark" && "border border-steel-700",
+          variant === "warm" && "border-2 border-burgundy-200",
+        )} />
         <div>
-          <p className="text-zinc-50 text-sm font-medium">{testimonial.name}</p>
-          <p className="font-mono text-xs text-steel-500">{testimonial.company}{testimonial.role ? ` · ${testimonial.role}` : ""}</p>
+          <p className={cn(
+            "text-sm font-medium",
+            variant === "dark" && "text-zinc-50",
+            variant === "warm" && "text-steel-900",
+          )}>{testimonial.name}</p>
+          <p className={cn(
+            "font-mono text-xs",
+            variant === "dark" && "text-steel-500",
+            variant === "warm" && "text-burgundy-500",
+          )}>{testimonial.company}{testimonial.role ? ` · ${testimonial.role}` : ""}</p>
         </div>
       </div>
-      <p className="text-steel-300 text-sm leading-relaxed italic">"{testimonial.quote}"</p>
+      <p className={cn(
+        "text-sm leading-relaxed italic",
+        variant === "dark" && "text-steel-300",
+        variant === "warm" && "text-steel-600",
+      )}>&ldquo;{testimonial.quote}&rdquo;</p>
     </div>
   );
 }

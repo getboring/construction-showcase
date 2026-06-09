@@ -209,8 +209,11 @@ E2E and visual regression tests across 7 spec files. Two projects: `desktop-chro
 | Token | Value |
 |-------|-------|
 | Backgrounds | zinc-950 / steel-950 |
-| Accents | amber-500 |
+| Primary accent | amber-500 (CTAs, highlights) |
+| Heritage accent | burgundy-600 `#7a1e1f` (trust indicators, section labels, footer, warm sections) |
+| Warm sections | warm-50 `#faf9f7` (alternating content sections for readability) |
+| Blueprint texture | Subtle grid overlay on hero (technical drawing feel) |
 | Display font | Bebas Neue |
 | Body font | Inter |
 | Mono font | JetBrains Mono |
-| Design tokens | `src/styles/tokens.css` (steel, amber, concrete, rust, safety, hazard) |
+| Design tokens | `src/styles/tokens.css` (steel, amber, burgundy, warm, concrete, rust, safety, hazard) |

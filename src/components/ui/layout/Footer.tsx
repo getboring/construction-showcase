@@ -6,14 +6,14 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-steel-800 py-16 px-6 bg-steel-950" role="contentinfo">
+    <footer className="border-t border-burgundy-700/30 py-16 px-6 bg-burgundy-950" role="contentinfo">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           <div>
             <Link to="/" aria-label="TITAN Build Co. home">
               <Wordmark />
             </Link>
-            <p className="text-steel-500 text-sm mt-4 leading-relaxed">
+            <p className="text-burgundy-200/60 text-sm mt-4 leading-relaxed">
               {siteConfig.tagline}. Commercial, healthcare, industrial, and residential construction across the Southeast.
             </p>
           </div>
@@ -23,7 +23,7 @@ export function Footer() {
             <ul className="space-y-2">
               {["General Contracting", "Design-Build", "Construction Mgmt", "Pre-Construction"].map((s) => (
                 <li key={s}>
-                  <Link to="/services" className="text-sm text-steel-400 hover:text-amber-400 transition-colors">
+                  <Link to="/services" className="text-sm text-burgundy-200/70 hover:text-amber-400 transition-colors">
                     {s}
                   </Link>
                 </li>
@@ -41,7 +41,7 @@ export function Footer() {
                 { label: "Careers", href: "/careers" },
               ].map((s) => (
                 <li key={s.label}>
-                  <Link to={s.href} className="text-sm text-steel-400 hover:text-amber-400 transition-colors">
+                  <Link to={s.href} className="text-sm text-burgundy-200/70 hover:text-amber-400 transition-colors">
                     {s.label}
                   </Link>
                 </li>
@@ -51,7 +51,7 @@ export function Footer() {
 
           <div>
             <h3 className="font-mono text-xs text-amber-500 uppercase tracking-[0.15em] mb-4">Contact</h3>
-            <address className="not-italic space-y-2 text-sm text-steel-400">
+            <address className="not-italic space-y-2 text-sm text-burgundy-200/70">
               <p>{siteConfig.address}</p>
               <p>
                 <a href={`tel:${siteConfig.phone.replace(/[^+\d]/g, "")}`} className="hover:text-amber-400 transition-colors">
@@ -67,13 +67,13 @@ export function Footer() {
           </div>
         </div>
 
-        <Separator />
+        <Separator className="bg-burgundy-700/30" />
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-8">
-          <p className="font-mono text-xs text-steel-600 uppercase tracking-widest">
+          <p className="font-mono text-xs text-burgundy-300/40 uppercase tracking-widest">
             {siteConfig.licensing}
           </p>
-          <p className="text-steel-600 text-xs">
+          <p className="text-burgundy-300/40 text-xs">
             &copy; {currentYear} {siteConfig.name}. All rights reserved.
           </p>
         </div>

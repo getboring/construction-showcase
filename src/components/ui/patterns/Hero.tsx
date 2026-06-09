@@ -25,7 +25,7 @@ export function Hero({
   const titleParts = titleHighlight ? title.split(titleHighlight) : [title];
 
   return (
-    <header className={cn("pt-32 pb-20 px-6 relative", className)}>
+    <header className={cn("pt-32 pb-20 px-6 relative bg-blueprint", className)}>
       {backgroundImage && (
         <>
           <img src={backgroundImage} alt="" role="presentation" width={1600} height={900} className="absolute inset-0 w-full h-full object-cover" />

@@ -19,7 +19,7 @@ export function CTASection() {
         <div className="absolute inset-0 bg-steel-900/90" />
       </div>
       <Container className="text-center relative z-10 max-w-4xl">
-        <p className="font-mono text-amber-500 text-xs uppercase tracking-[0.2em] mb-6">
+        <p className="font-mono text-burgundy-300 text-xs uppercase tracking-[0.2em] mb-6">
           Ready When You Are
         </p>
         <h2 className="font-display text-6xl md:text-8xl text-zinc-50 leading-[0.9] mb-8">

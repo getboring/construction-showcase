@@ -92,6 +92,15 @@
   .text-pretty {
     text-wrap: pretty;
   }
+  /* Blueprint/technical drawing texture - modernized from JA Street */
+  .bg-blueprint {
+    background-image:
+      linear-gradient(rgba(122, 30, 31, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(122, 30, 31, 0.03) 1px, transparent 1px),
+      linear-gradient(rgba(122, 30, 31, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(122, 30, 31, 0.015) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  }
 }
 
 /* Base UI data-state animation transitions */
